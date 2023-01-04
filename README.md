@@ -1,5 +1,7 @@
 # Swarm Control
 
+![logo.png](logo.png)
+
 `swarmctl` is a replacement command line for `docker` regarding swarm mode support.
 This command line is a drop-in replacement, with the exact same UX (actually, running the same code)
 
