@@ -5,7 +5,7 @@ import (
 	"os"
 	"path/filepath"
 
-	. "github.com/moby/swarmctl/cmd/swarmctl"
+	. "github.com/moby/swarmctl/cmd/root"
 
 	clidocstool "github.com/docker/cli-docs-tool"
 	"github.com/docker/cli/cli/command"

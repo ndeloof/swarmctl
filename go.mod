@@ -1,6 +1,6 @@
 module github.com/moby/swarmctl
 
-go 1.18
+go 1.19
 
 require (
 	github.com/docker/cli v20.10.13+incompatible

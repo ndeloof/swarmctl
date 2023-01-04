@@ -38,7 +38,7 @@ jobs:
         name: Create matrix
         id: platforms
         run: |
-          echo ::set-output name=matrix::$(docker buildx -f swarmctl-bake.hcl bake binary-cross --print | jq -cr '.target."binary-cross".platforms')
+          echo ::set-output name=matrix::$(docker buildx bake -f swarmctl-bake.hcl binary-cross --print | jq -cr '.target."binary-cross".platforms')
       -
         name: Show matrix
         run: |
@@ -92,6 +92,7 @@ jobs:
         name: Build
         uses: docker/bake-action@v2
         with:
+          files: swarmctl-bake.hcl
           targets: release
           set: |
             *.platform=${{ matrix.platform }}
@@ -119,6 +120,7 @@ jobs:
         uses: docker/bake-action@v2
         with:
           targets: test
+          files: swarmctl-bake.hcl
           set: |
             *.cache-from=type=gha,scope=test
             *.cache-to=type=gha,scope=test
@@ -148,9 +150,6 @@ jobs:
           shasum -a 256 -U -c $RUNNER_TEMP/checksums.txt
           mv $RUNNER_TEMP/checksums.txt .
           cat checksums.txt | while read sum file; do echo "$sum $file" > ${file#\*}.sha256; done
-      -
-        name: License
-        run: cp packaging/* ${{ env.DESTDIR }}/
       -
         name: List artifacts
         run: |

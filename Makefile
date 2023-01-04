@@ -3,6 +3,17 @@ all: binary
 BUILDX_CMD ?= docker buildx
 DESTDIR ?= ./bin/build
 
+ifeq ($(OS),Windows_NT)
+    DETECTED_OS = Windows
+else
+    DETECTED_OS = $(shell uname -s)
+endif
+ifeq ($(DETECTED_OS),Linux)
+	MOBY_DOCKER=/usr/bin/docker
+endif
+ifeq ($(DETECTED_OS),Darwin)
+	MOBY_DOCKER=/Applications/Docker.app/Contents/Resources/bin/docker
+endif
 ifeq ($(DETECTED_OS),Windows)
 	BINARY_EXT=.exe
 endif

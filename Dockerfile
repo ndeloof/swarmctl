@@ -63,7 +63,7 @@ ARG BUILD_TAGS
 RUN --mount=type=bind,target=. \
     --mount=type=cache,target=/root/.cache \
     --mount=from=golangci-lint,source=/usr/bin/golangci-lint,target=/usr/bin/golangci-lint \
-    golangci-lint run --build-tags "$BUILD_TAGS" ./...
+    golangci-lint run --timeout=5m --build-tags "$BUILD_TAGS" ./...
 
 FROM base AS docsgen
 WORKDIR /src
@@ -123,3 +123,18 @@ RUN --mount=type=bind,target=.,rw <<EOT
     exit 1
   fi
 EOT
+
+FROM --platform=$BUILDPLATFORM alpine AS releaser
+WORKDIR /work
+ARG TARGETOS
+ARG TARGETARCH
+ARG TARGETVARIANT
+RUN --mount=from=binary \
+    mkdir -p /out && \
+    # TODO: should just use standard arch
+    TARGETARCH=$([ "$TARGETARCH" = "amd64" ] && echo "x86_64" || echo "$TARGETARCH"); \
+    TARGETARCH=$([ "$TARGETARCH" = "arm64" ] && echo "aarch64" || echo "$TARGETARCH"); \
+    cp swarmctl* "/out/swarmctl-${TARGETOS}-${TARGETARCH}${TARGETVARIANT}$(ls swarmctl* | sed -e 's/^swarmctl//')"
+
+FROM scratch AS release
+COPY --from=releaser /out/ /
