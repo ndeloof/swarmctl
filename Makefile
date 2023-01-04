@@ -3,6 +3,12 @@ all: binary
 BUILDX_CMD ?= docker buildx
 DESTDIR ?= ./bin/build
 
+PKG := github.com/moby/swarmctl
+VERSION ?= $(shell git describe --match 'v[0-9]*' --dirty='.m' --always --tags)
+COMMIT ?= $(shell git rev-parse --short HEAD)
+
+GO_LDFLAGS ?= -s -w -X ${PKG}/internal.Version=${VERSION} -X ${PKG}/internal.GitCommit=${COMMIT}
+
 ifeq ($(OS),Windows_NT)
     DETECTED_OS = Windows
 else
