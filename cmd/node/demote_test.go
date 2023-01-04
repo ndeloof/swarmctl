@@ -4,9 +4,9 @@ import (
 	"io"
 	"testing"
 
-	"github.com/docker/cli/internal/test"
-	. "github.com/docker/cli/internal/test/builders" // Import builders to get the builder function as package functions
 	"github.com/docker/docker/api/types/swarm"
+	"github.com/moby/swarmctl/internal/test"
+	. "github.com/moby/swarmctl/internal/test/builders" // Import builders to get the builder function as package functions
 	"github.com/pkg/errors"
 	"gotest.tools/v3/assert"
 )
