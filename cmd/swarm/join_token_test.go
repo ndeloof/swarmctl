@@ -96,7 +96,7 @@ func TestSwarmJoinTokenErrors(t *testing.T) {
 		cmd := newJoinTokenCommand(cli)
 		cmd.SetArgs(tc.args)
 		for key, value := range tc.flags {
-			cmd.Flags().Set(key, value)
+			cmd.Flags().Set(key, value) //nolint: errcheck
 		}
 		cmd.SetOut(io.Discard)
 		assert.ErrorContains(t, cmd.Execute(), tc.expectedError)
@@ -202,7 +202,7 @@ func TestSwarmJoinToken(t *testing.T) {
 		cmd := newJoinTokenCommand(cli)
 		cmd.SetArgs(tc.args)
 		for key, value := range tc.flags {
-			cmd.Flags().Set(key, value)
+			cmd.Flags().Set(key, value) //nolint: errcheck
 		}
 		assert.NilError(t, cmd.Execute())
 		golden.Assert(t, cli.OutBuffer().String(), fmt.Sprintf("jointoken-%s.golden", tc.name))

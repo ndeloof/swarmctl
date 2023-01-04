@@ -57,7 +57,7 @@ func TestSecretInspectErrors(t *testing.T) {
 		)
 		cmd.SetArgs(tc.args)
 		for key, value := range tc.flags {
-			cmd.Flags().Set(key, value)
+			cmd.Flags().Set(key, value) //nolint: errcheck
 		}
 		cmd.SetOut(io.Discard)
 		assert.ErrorContains(t, cmd.Execute(), tc.expectedError)
@@ -132,7 +132,7 @@ func TestSecretInspectWithFormat(t *testing.T) {
 		})
 		cmd := newSecretInspectCommand(cli)
 		cmd.SetArgs(tc.args)
-		cmd.Flags().Set("format", tc.format)
+		cmd.Flags().Set("format", tc.format) //nolint: errcheck
 		assert.NilError(t, cmd.Execute())
 		golden.Assert(t, cli.OutBuffer().String(), fmt.Sprintf("secret-inspect-with-format.%s.golden", tc.name))
 	}
@@ -165,7 +165,7 @@ func TestSecretInspectPretty(t *testing.T) {
 		})
 		cmd := newSecretInspectCommand(cli)
 		cmd.SetArgs([]string{"secretID"})
-		cmd.Flags().Set("pretty", "true")
+		cmd.Flags().Set("pretty", "true") //nolint: errcheck
 		assert.NilError(t, cmd.Execute())
 		golden.Assert(t, cli.OutBuffer().String(), fmt.Sprintf("secret-inspect-pretty.%s.golden", tc.name))
 	}

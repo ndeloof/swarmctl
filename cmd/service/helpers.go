@@ -20,7 +20,7 @@ func waitOnService(ctx context.Context, dockerCli command.Cli, serviceID string,
 	}()
 
 	if quiet {
-		go io.Copy(io.Discard, pipeReader)
+		go io.Copy(io.Discard, pipeReader) //nolint:errcheck
 		return <-errChan
 	}
 

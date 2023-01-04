@@ -84,7 +84,7 @@ func TestNodeListQuietShouldOnlyPrintIDs(t *testing.T) {
 		},
 	})
 	cmd := newListCommand(cli)
-	cmd.Flags().Set("quiet", "true")
+	cmd.Flags().Set("quiet", "true") //nolint:errcheck
 	assert.NilError(t, cmd.Execute())
 	assert.Check(t, is.Equal(cli.OutBuffer().String(), "nodeID1\n"))
 }
@@ -134,7 +134,7 @@ func TestNodeListFormat(t *testing.T) {
 		NodesFormat: "{{.ID}}: {{.Hostname}} {{.Status}}/{{.ManagerStatus}}",
 	})
 	cmd := newListCommand(cli)
-	cmd.Flags().Set("format", "{{.Hostname}}: {{.ManagerStatus}}")
+	cmd.Flags().Set("format", "{{.Hostname}}: {{.ManagerStatus}}") //nolint: errcheck
 	assert.NilError(t, cmd.Execute())
 	golden.Assert(t, cli.OutBuffer().String(), "node-list-format-flag.golden")
 }

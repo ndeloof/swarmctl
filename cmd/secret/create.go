@@ -42,9 +42,9 @@ func newSecretCreateCommand(dockerCli command.Cli) *cobra.Command {
 	flags := cmd.Flags()
 	flags.VarP(&options.labels, "label", "l", "Secret labels")
 	flags.StringVarP(&options.driver, "driver", "d", "", "Secret driver")
-	flags.SetAnnotation("driver", "version", []string{"1.31"})
+	flags.SetAnnotation("driver", "version", []string{"1.31"}) //nolint:errcheck
 	flags.StringVar(&options.templateDriver, "template-driver", "", "Template driver")
-	flags.SetAnnotation("template-driver", "version", []string{"1.37"})
+	flags.SetAnnotation("template-driver", "version", []string{"1.37"}) //nolint:errcheck
 
 	return cmd
 }

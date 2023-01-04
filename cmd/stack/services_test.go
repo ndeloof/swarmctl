@@ -5,10 +5,10 @@ import (
 	"testing"
 
 	"github.com/docker/cli/cli/config/configfile"
-	"github.com/docker/cli/internal/test"
-	. "github.com/docker/cli/internal/test/builders" // Import builders to get the builder function as package function
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/swarm"
+	"github.com/moby/swarmctl/internal/test"
+	. "github.com/moby/swarmctl/internal/test/builders" // Import builders to get the builder function as package function
 	"github.com/pkg/errors"
 	"gotest.tools/v3/assert"
 	is "gotest.tools/v3/assert/cmp"
@@ -34,7 +34,7 @@ func TestStackServicesErrors(t *testing.T) {
 		{
 			args: []string{"foo"},
 			serviceListFunc: func(options types.ServiceListOptions) ([]swarm.Service, error) {
-				return []swarm.Service{*Service(GlobalService())}, nil
+				return []swarm.Service{*Service(GlobalService())}, nil // nolint: typecheck
 			},
 			nodeListFunc: func(options types.NodeListOptions) ([]swarm.Node, error) {
 				return nil, errors.Errorf("error getting nodes")
@@ -47,7 +47,7 @@ func TestStackServicesErrors(t *testing.T) {
 		{
 			args: []string{"foo"},
 			serviceListFunc: func(options types.ServiceListOptions) ([]swarm.Service, error) {
-				return []swarm.Service{*Service(GlobalService())}, nil
+				return []swarm.Service{*Service(GlobalService())}, nil // nolint: typecheck
 			},
 			taskListFunc: func(options types.TaskListOptions) ([]swarm.Task, error) {
 				return nil, errors.Errorf("error getting tasks")
@@ -77,7 +77,7 @@ func TestStackServicesErrors(t *testing.T) {
 			cmd := newServicesCommand(cli)
 			cmd.SetArgs(tc.args)
 			for key, value := range tc.flags {
-				cmd.Flags().Set(key, value)
+				cmd.Flags().Set(key, value) //nolint: errcheck
 			}
 			cmd.SetOut(io.Discard)
 			assert.ErrorContains(t, cmd.Execute(), tc.expectedError)
@@ -113,7 +113,7 @@ func TestStackServicesWithQuietOption(t *testing.T) {
 		},
 	})
 	cmd := newServicesCommand(cli)
-	cmd.Flags().Set("quiet", "true")
+	cmd.Flags().Set("quiet", "true") //nolint: errcheck
 	cmd.SetArgs([]string{"foo"})
 	assert.NilError(t, cmd.Execute())
 	golden.Assert(t, cli.OutBuffer().String(), "stack-services-with-quiet-option.golden")
@@ -129,7 +129,7 @@ func TestStackServicesWithFormat(t *testing.T) {
 	})
 	cmd := newServicesCommand(cli)
 	cmd.SetArgs([]string{"foo"})
-	cmd.Flags().Set("format", "{{ .Name }}")
+	cmd.Flags().Set("format", "{{ .Name }}") //nolint: errcheck
 	assert.NilError(t, cmd.Execute())
 	golden.Assert(t, cli.OutBuffer().String(), "stack-services-with-format.golden")
 }
@@ -155,11 +155,11 @@ func TestStackServicesWithoutFormat(t *testing.T) {
 	cli := test.NewFakeCli(&fakeClient{
 		serviceListFunc: func(options types.ServiceListOptions) ([]swarm.Service, error) {
 			return []swarm.Service{*Service(
-				ServiceName("name-foo"),
-				ServiceID("id-foo"),
-				ReplicatedService(2),
-				ServiceImage("busybox:latest"),
-				ServicePort(swarm.PortConfig{
+				ServiceName("name-foo"),        // nolint: typecheck
+				ServiceID("id-foo"),            // nolint: typecheck
+				ReplicatedService(2),           // nolint: typecheck
+				ServiceImage("busybox:latest"), // nolint: typecheck
+				ServicePort(swarm.PortConfig{ // nolint: typecheck
 					PublishMode:   swarm.PortConfigPublishModeIngress,
 					PublishedPort: 0,
 					TargetPort:    3232,

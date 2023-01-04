@@ -48,7 +48,7 @@ func TestRollback(t *testing.T) {
 		})
 		cmd := newRollbackCommand(cli)
 		cmd.SetArgs(tc.args)
-		cmd.Flags().Set("quiet", "true")
+		cmd.Flags().Set("quiet", "true") //nolint: errcheck
 		cmd.SetOut(io.Discard)
 		assert.NilError(t, cmd.Execute())
 		assert.Check(t, is.Equal(strings.TrimSpace(cli.ErrBuffer().String()), tc.expectedDockerCliErr))
@@ -97,7 +97,7 @@ func TestRollbackWithErrors(t *testing.T) {
 				serviceUpdateFunc:         tc.serviceUpdateFunc,
 			}))
 		cmd.SetArgs(tc.args)
-		cmd.Flags().Set("quiet", "true")
+		cmd.Flags().Set("quiet", "true") //nolint: errcheck
 		cmd.SetOut(io.Discard)
 		assert.ErrorContains(t, cmd.Execute(), tc.expectedError)
 	}

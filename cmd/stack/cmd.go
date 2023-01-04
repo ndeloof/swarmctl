@@ -30,8 +30,8 @@ func NewStackCommand(dockerCli command.Cli) *cobra.Command {
 	)
 	flags := cmd.PersistentFlags()
 	flags.String("orchestrator", "", "Orchestrator to use (swarm|all)")
-	flags.SetAnnotation("orchestrator", "deprecated", nil)
-	flags.MarkDeprecated("orchestrator", "option will be ignored")
+	flags.SetAnnotation("orchestrator", "deprecated", nil)         //nolint: errcheck
+	flags.MarkDeprecated("orchestrator", "option will be ignored") //nolint:errcheck
 	return cmd
 }
 

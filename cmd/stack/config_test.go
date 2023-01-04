@@ -4,9 +4,9 @@ import (
 	"io"
 	"testing"
 
-	"github.com/docker/cli/internal/test"
 	"github.com/moby/swarmctl/compose/loader"
 	composetypes "github.com/moby/swarmctl/compose/types"
+	"github.com/moby/swarmctl/internal/test"
 	"gotest.tools/v3/assert"
 )
 

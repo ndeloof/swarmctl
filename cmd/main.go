@@ -26,7 +26,7 @@ func main() {
 	cmd := RootCommand(dockerCli)
 	opts, flags := cli.SetupPluginRootCommand(cmd)
 	tcmd := cli.NewTopLevelCommand(cmd, dockerCli, opts, flags)
-	tcmd.Initialize()
+	tcmd.Initialize() //nolint:errcheck
 
 	cmd, args, err := tcmd.HandleGlobalFlags()
 	if err != nil {

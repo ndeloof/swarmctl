@@ -225,9 +225,9 @@ func addSwarmFlags(flags *pflag.FlagSet, opts *swarmOptions) {
 	flags.Int64Var(&opts.taskHistoryLimit, flagTaskHistoryLimit, 5, "Task history retention limit")
 	flags.DurationVar(&opts.dispatcherHeartbeat, flagDispatcherHeartbeat, 5*time.Second, "Dispatcher heartbeat period (ns|us|ms|s|m|h)")
 	flags.Uint64Var(&opts.maxSnapshots, flagMaxSnapshots, 0, "Number of additional Raft snapshots to retain")
-	flags.SetAnnotation(flagMaxSnapshots, "version", []string{"1.25"})
+	flags.SetAnnotation(flagMaxSnapshots, "version", []string{"1.25"}) //nolint:errcheck
 	flags.Uint64Var(&opts.snapshotInterval, flagSnapshotInterval, 10000, "Number of log entries between Raft snapshots")
-	flags.SetAnnotation(flagSnapshotInterval, "version", []string{"1.25"})
+	flags.SetAnnotation(flagSnapshotInterval, "version", []string{"1.25"}) //nolint: errcheck
 	addSwarmCAFlags(flags, &opts.swarmCAOptions)
 }
 

@@ -19,7 +19,7 @@ import (
 
 func TestUpdateServiceArgs(t *testing.T) {
 	flags := newUpdateCommand(nil).Flags()
-	flags.Set("args", "the \"new args\"")
+	flags.Set("args", "the \"new args\"") //nolint: errcheck
 
 	spec := &swarm.ServiceSpec{
 		TaskTemplate: swarm.TaskSpec{
@@ -29,20 +29,20 @@ func TestUpdateServiceArgs(t *testing.T) {
 	cspec := spec.TaskTemplate.ContainerSpec
 	cspec.Args = []string{"old", "args"}
 
-	updateService(context.TODO(), nil, flags, spec)
+	updateService(context.TODO(), nil, flags, spec) //nolint:errcheck
 	assert.Check(t, is.DeepEqual([]string{"the", "new args"}, cspec.Args))
 }
 
 func TestUpdateLabels(t *testing.T) {
 	flags := newUpdateCommand(nil).Flags()
-	flags.Set("label-add", "add-beats-remove=value")
-	flags.Set("label-add", "to-add=value")
-	flags.Set("label-add", "to-update=new-value")
-	flags.Set("label-add", "to-replace=new-value")
-	flags.Set("label-rm", "add-beats-remove")
-	flags.Set("label-rm", "to-remove")
-	flags.Set("label-rm", "to-replace")
-	flags.Set("label-rm", "no-such-label")
+	flags.Set("label-add", "add-beats-remove=value") //nolint: errcheck
+	flags.Set("label-add", "to-add=value")           //nolint: errcheck
+	flags.Set("label-add", "to-update=new-value")    //nolint: errcheck
+	flags.Set("label-add", "to-replace=new-value")   //nolint: errcheck
+	flags.Set("label-rm", "add-beats-remove")        //nolint: errcheck
+	flags.Set("label-rm", "to-remove")               //nolint: errcheck
+	flags.Set("label-rm", "to-replace")              //nolint: errcheck
+	flags.Set("label-rm", "no-such-label")           //nolint: errcheck
 
 	labels := map[string]string{
 		"to-keep":    "value",
@@ -63,14 +63,14 @@ func TestUpdateLabels(t *testing.T) {
 
 func TestUpdateContainerLabels(t *testing.T) {
 	flags := newUpdateCommand(nil).Flags()
-	flags.Set("container-label-add", "add-beats-remove=value")
-	flags.Set("container-label-add", "to-add=value")
-	flags.Set("container-label-add", "to-update=new-value")
-	flags.Set("container-label-add", "to-replace=new-value")
-	flags.Set("container-label-rm", "add-beats-remove")
-	flags.Set("container-label-rm", "to-remove")
-	flags.Set("container-label-rm", "to-replace")
-	flags.Set("container-label-rm", "no-such-label")
+	flags.Set("container-label-add", "add-beats-remove=value") //nolint: errcheck
+	flags.Set("container-label-add", "to-add=value")           //nolint: errcheck
+	flags.Set("container-label-add", "to-update=new-value")    //nolint: errcheck
+	flags.Set("container-label-add", "to-replace=new-value")   //nolint: errcheck
+	flags.Set("container-label-rm", "add-beats-remove")        //nolint: errcheck
+	flags.Set("container-label-rm", "to-remove")               //nolint: errcheck
+	flags.Set("container-label-rm", "to-replace")              //nolint: errcheck
+	flags.Set("container-label-rm", "no-such-label")           //nolint: errcheck
 
 	labels := map[string]string{
 		"to-keep":    "value",
@@ -91,8 +91,8 @@ func TestUpdateContainerLabels(t *testing.T) {
 
 func TestUpdatePlacementConstraints(t *testing.T) {
 	flags := newUpdateCommand(nil).Flags()
-	flags.Set("constraint-add", "node=toadd")
-	flags.Set("constraint-rm", "node!=toremove")
+	flags.Set("constraint-add", "node=toadd")    //nolint: errcheck
+	flags.Set("constraint-rm", "node!=toremove") //nolint: errcheck
 
 	placement := &swarm.Placement{
 		Constraints: []string{"node!=toremove", "container=tokeep"},
@@ -106,8 +106,8 @@ func TestUpdatePlacementConstraints(t *testing.T) {
 
 func TestUpdatePlacementPrefs(t *testing.T) {
 	flags := newUpdateCommand(nil).Flags()
-	flags.Set("placement-pref-add", "spread=node.labels.dc")
-	flags.Set("placement-pref-rm", "spread=node.labels.rack")
+	flags.Set("placement-pref-add", "spread=node.labels.dc")  //nolint: errcheck
+	flags.Set("placement-pref-rm", "spread=node.labels.rack") //nolint: errcheck
 
 	placement := &swarm.Placement{
 		Preferences: []swarm.PlacementPreference{
@@ -132,8 +132,8 @@ func TestUpdatePlacementPrefs(t *testing.T) {
 
 func TestUpdateEnvironment(t *testing.T) {
 	flags := newUpdateCommand(nil).Flags()
-	flags.Set("env-add", "toadd=newenv")
-	flags.Set("env-rm", "toremove")
+	flags.Set("env-add", "toadd=newenv") //nolint: errcheck
+	flags.Set("env-rm", "toremove")      //nolint: errcheck
 
 	envs := []string{"toremove=theenvtoremove", "tokeep=value"}
 
@@ -147,9 +147,9 @@ func TestUpdateEnvironment(t *testing.T) {
 
 func TestUpdateEnvironmentWithDuplicateValues(t *testing.T) {
 	flags := newUpdateCommand(nil).Flags()
-	flags.Set("env-rm", "foo")
-	flags.Set("env-add", "foo=first")
-	flags.Set("env-add", "foo=second")
+	flags.Set("env-rm", "foo")         //nolint: errcheck
+	flags.Set("env-add", "foo=first")  //nolint: errcheck
+	flags.Set("env-add", "foo=second") //nolint: errcheck
 
 	envs := []string{"foo=value"}
 
@@ -161,7 +161,7 @@ func TestUpdateEnvironmentWithDuplicateValues(t *testing.T) {
 func TestUpdateEnvironmentWithDuplicateKeys(t *testing.T) {
 	// Test case for #25404
 	flags := newUpdateCommand(nil).Flags()
-	flags.Set("env-add", "A=b")
+	flags.Set("env-add", "A=b") //nolint: errcheck
 
 	envs := []string{"A=c"}
 
@@ -172,15 +172,15 @@ func TestUpdateEnvironmentWithDuplicateKeys(t *testing.T) {
 
 func TestUpdateGroups(t *testing.T) {
 	flags := newUpdateCommand(nil).Flags()
-	flags.Set("group-add", "wheel")
-	flags.Set("group-add", "docker")
-	flags.Set("group-rm", "root")
-	flags.Set("group-add", "foo")
-	flags.Set("group-rm", "docker")
+	flags.Set("group-add", "wheel")  //nolint: errcheck
+	flags.Set("group-add", "docker") //nolint: errcheck
+	flags.Set("group-rm", "root")    //nolint: errcheck
+	flags.Set("group-add", "foo")    //nolint: errcheck
+	flags.Set("group-rm", "docker")  //nolint: errcheck
 
 	groups := []string{"bar", "root"}
 
-	updateGroups(flags, &groups)
+	updateGroups(flags, &groups) //nolint:errcheck
 	assert.Assert(t, is.Len(groups, 3))
 	assert.Check(t, is.Equal("bar", groups[0]))
 	assert.Check(t, is.Equal("foo", groups[1]))
@@ -191,26 +191,26 @@ func TestUpdateDNSConfig(t *testing.T) {
 	flags := newUpdateCommand(nil).Flags()
 
 	// IPv4, with duplicates
-	flags.Set("dns-add", "1.1.1.1")
-	flags.Set("dns-add", "1.1.1.1")
-	flags.Set("dns-add", "2.2.2.2")
-	flags.Set("dns-rm", "3.3.3.3")
-	flags.Set("dns-rm", "2.2.2.2")
+	flags.Set("dns-add", "1.1.1.1") //nolint: errcheck
+	flags.Set("dns-add", "1.1.1.1") //nolint: errcheck
+	flags.Set("dns-add", "2.2.2.2") //nolint: errcheck
+	flags.Set("dns-rm", "3.3.3.3")  //nolint: errcheck
+	flags.Set("dns-rm", "2.2.2.2")  //nolint: errcheck
 	// IPv6
-	flags.Set("dns-add", "2001:db8:abc8::1")
+	flags.Set("dns-add", "2001:db8:abc8::1") //nolint: errcheck
 	// Invalid dns record
 	assert.ErrorContains(t, flags.Set("dns-add", "x.y.z.w"), "x.y.z.w is not an ip address")
 
 	// domains with duplicates
-	flags.Set("dns-search-add", "example.com")
-	flags.Set("dns-search-add", "example.com")
-	flags.Set("dns-search-add", "example.org")
-	flags.Set("dns-search-rm", "example.org")
+	flags.Set("dns-search-add", "example.com") //nolint: errcheck
+	flags.Set("dns-search-add", "example.com") //nolint: errcheck
+	flags.Set("dns-search-add", "example.org") //nolint: errcheck
+	flags.Set("dns-search-rm", "example.org")  //nolint: errcheck
 	// Invalid dns search domain
 	assert.ErrorContains(t, flags.Set("dns-search-add", "example$com"), "example$com is not a valid domain")
 
-	flags.Set("dns-option-add", "ndots:9")
-	flags.Set("dns-option-rm", "timeout:3")
+	flags.Set("dns-option-add", "ndots:9")  //nolint: errcheck
+	flags.Set("dns-option-rm", "timeout:3") //nolint: errcheck
 
 	config := &swarm.DNSConfig{
 		Nameservers: []string{"3.3.3.3", "5.5.5.5"},
@@ -218,7 +218,7 @@ func TestUpdateDNSConfig(t *testing.T) {
 		Options:     []string{"timeout:3"},
 	}
 
-	updateDNSConfig(flags, &config)
+	updateDNSConfig(flags, &config) //nolint:errcheck
 
 	assert.Assert(t, is.Len(config.Nameservers, 3))
 	assert.Check(t, is.Equal("1.1.1.1", config.Nameservers[0]))
@@ -235,15 +235,15 @@ func TestUpdateDNSConfig(t *testing.T) {
 
 func TestUpdateMounts(t *testing.T) {
 	flags := newUpdateCommand(nil).Flags()
-	flags.Set("mount-add", "type=volume,source=vol2,target=/toadd")
-	flags.Set("mount-rm", "/toremove")
+	flags.Set("mount-add", "type=volume,source=vol2,target=/toadd") //nolint: errcheck
+	flags.Set("mount-rm", "/toremove")                              //nolint: errcheck
 
 	mounts := []mounttypes.Mount{
 		{Target: "/toremove", Source: "vol1", Type: mounttypes.TypeBind},
 		{Target: "/tokeep", Source: "vol3", Type: mounttypes.TypeBind},
 	}
 
-	updateMounts(flags, &mounts)
+	updateMounts(flags, &mounts) //nolint:errcheck
 	assert.Assert(t, is.Len(mounts, 2))
 	assert.Check(t, is.Equal("/toadd", mounts[0].Target))
 	assert.Check(t, is.Equal("/tokeep", mounts[1].Target))
@@ -251,7 +251,7 @@ func TestUpdateMounts(t *testing.T) {
 
 func TestUpdateMountsWithDuplicateMounts(t *testing.T) {
 	flags := newUpdateCommand(nil).Flags()
-	flags.Set("mount-add", "type=volume,source=vol4,target=/toadd")
+	flags.Set("mount-add", "type=volume,source=vol4,target=/toadd") //nolint: errcheck
 
 	mounts := []mounttypes.Mount{
 		{Target: "/tokeep1", Source: "vol1", Type: mounttypes.TypeBind},
@@ -259,7 +259,7 @@ func TestUpdateMountsWithDuplicateMounts(t *testing.T) {
 		{Target: "/tokeep2", Source: "vol3", Type: mounttypes.TypeBind},
 	}
 
-	updateMounts(flags, &mounts)
+	updateMounts(flags, &mounts) //nolint:errcheck
 	assert.Assert(t, is.Len(mounts, 3))
 	assert.Check(t, is.Equal("/tokeep1", mounts[0].Target))
 	assert.Check(t, is.Equal("/tokeep2", mounts[1].Target))
@@ -268,8 +268,8 @@ func TestUpdateMountsWithDuplicateMounts(t *testing.T) {
 
 func TestUpdatePorts(t *testing.T) {
 	flags := newUpdateCommand(nil).Flags()
-	flags.Set("publish-add", "1000:1000")
-	flags.Set("publish-rm", "333/udp")
+	flags.Set("publish-add", "1000:1000") //nolint: errcheck
+	flags.Set("publish-rm", "333/udp")    //nolint: errcheck
 
 	portConfigs := []swarm.PortConfig{
 		{TargetPort: 333, Protocol: swarm.PortConfigProtocolUDP},
@@ -289,7 +289,7 @@ func TestUpdatePorts(t *testing.T) {
 func TestUpdatePortsDuplicate(t *testing.T) {
 	// Test case for #25375
 	flags := newUpdateCommand(nil).Flags()
-	flags.Set("publish-add", "80:80")
+	flags.Set("publish-add", "80:80") //nolint: errcheck
 
 	portConfigs := []swarm.PortConfig{
 		{
@@ -370,7 +370,7 @@ func TestUpdateHealthcheckTable(t *testing.T) {
 	for i, c := range testCases {
 		flags := newUpdateCommand(nil).Flags()
 		for _, flag := range c.flags {
-			flags.Set(flag[0], flag[1])
+			flags.Set(flag[0], flag[1]) //nolint: errcheck
 		}
 		cspec := &swarm.ContainerSpec{
 			Healthcheck: c.initial,
@@ -389,16 +389,16 @@ func TestUpdateHealthcheckTable(t *testing.T) {
 
 func TestUpdateHosts(t *testing.T) {
 	flags := newUpdateCommand(nil).Flags()
-	flags.Set("host-add", "example.net:2.2.2.2")
-	flags.Set("host-add", "ipv6.net:2001:db8:abc8::1")
+	flags.Set("host-add", "example.net:2.2.2.2")       //nolint: errcheck
+	flags.Set("host-add", "ipv6.net:2001:db8:abc8::1") //nolint: errcheck
 	// adding the special "host-gateway" target should work
-	flags.Set("host-add", "host.docker.internal:host-gateway")
+	flags.Set("host-add", "host.docker.internal:host-gateway") //nolint: errcheck
 	// remove with ipv6 should work
-	flags.Set("host-rm", "example.net:2001:db8:abc8::1")
+	flags.Set("host-rm", "example.net:2001:db8:abc8::1") //nolint: errcheck
 	// just hostname should work as well
-	flags.Set("host-rm", "example.net")
+	flags.Set("host-rm", "example.net") //nolint: errcheck
 	// removing the special "host-gateway" target should work
-	flags.Set("host-rm", "gateway.docker.internal:host-gateway")
+	flags.Set("host-rm", "gateway.docker.internal:host-gateway") //nolint: errcheck
 	// bad format error
 	assert.ErrorContains(t, flags.Set("host-add", "$example.com$"), `bad format for add-host: "$example.com$"`)
 
@@ -412,9 +412,9 @@ func TestUpdateHosts(t *testing.T) {
 
 func TestUpdateHostsPreservesOrder(t *testing.T) {
 	flags := newUpdateCommand(nil).Flags()
-	flags.Set("host-add", "foobar:127.0.0.2")
-	flags.Set("host-add", "foobar:127.0.0.1")
-	flags.Set("host-add", "foobar:127.0.0.3")
+	flags.Set("host-add", "foobar:127.0.0.2") //nolint: errcheck
+	flags.Set("host-add", "foobar:127.0.0.1") //nolint: errcheck
+	flags.Set("host-add", "foobar:127.0.0.3") //nolint: errcheck
 
 	hosts := []string{}
 	err := updateHosts(flags, &hosts)
@@ -424,8 +424,8 @@ func TestUpdateHostsPreservesOrder(t *testing.T) {
 
 func TestUpdateHostsReplaceEntry(t *testing.T) {
 	flags := newUpdateCommand(nil).Flags()
-	flags.Set("host-add", "foobar:127.0.0.4")
-	flags.Set("host-rm", "foobar:127.0.0.2")
+	flags.Set("host-add", "foobar:127.0.0.4") //nolint: errcheck
+	flags.Set("host-rm", "foobar:127.0.0.2")  //nolint: errcheck
 
 	hosts := []string{"127.0.0.2 foobar", "127.0.0.1 foobar", "127.0.0.3 foobar"}
 
@@ -436,7 +436,7 @@ func TestUpdateHostsReplaceEntry(t *testing.T) {
 
 func TestUpdateHostsRemoveHost(t *testing.T) {
 	flags := newUpdateCommand(nil).Flags()
-	flags.Set("host-rm", "host1")
+	flags.Set("host-rm", "host1") //nolint: errcheck
 
 	hosts := []string{"127.0.0.2 host3 host1 host2 host4", "127.0.0.1 host1 host4", "127.0.0.3 host1"}
 
@@ -450,7 +450,7 @@ func TestUpdateHostsRemoveHost(t *testing.T) {
 
 func TestUpdateHostsRemoveHostIP(t *testing.T) {
 	flags := newUpdateCommand(nil).Flags()
-	flags.Set("host-rm", "host1:127.0.0.1")
+	flags.Set("host-rm", "host1:127.0.0.1") //nolint: errcheck
 
 	hosts := []string{"127.0.0.2 host3 host1 host2 host4", "127.0.0.1 host1 host4", "127.0.0.3 host1", "127.0.0.1 host1"}
 
@@ -465,9 +465,9 @@ func TestUpdateHostsRemoveHostIP(t *testing.T) {
 
 func TestUpdateHostsRemoveAll(t *testing.T) {
 	flags := newUpdateCommand(nil).Flags()
-	flags.Set("host-add", "host-three:127.0.0.4")
-	flags.Set("host-add", "host-one:127.0.0.5")
-	flags.Set("host-rm", "host-one")
+	flags.Set("host-add", "host-three:127.0.0.4") //nolint: errcheck
+	flags.Set("host-add", "host-one:127.0.0.5")   //nolint: errcheck
+	flags.Set("host-rm", "host-one")              //nolint: errcheck
 
 	hosts := []string{"127.0.0.1 host-one", "127.0.0.2 host-two", "127.0.0.3 host-one"}
 
@@ -478,11 +478,11 @@ func TestUpdateHostsRemoveAll(t *testing.T) {
 
 func TestUpdatePortsRmWithProtocol(t *testing.T) {
 	flags := newUpdateCommand(nil).Flags()
-	flags.Set("publish-add", "8081:81")
-	flags.Set("publish-add", "8082:82")
-	flags.Set("publish-rm", "80")
-	flags.Set("publish-rm", "81/tcp")
-	flags.Set("publish-rm", "82/udp")
+	flags.Set("publish-add", "8081:81") //nolint: errcheck
+	flags.Set("publish-add", "8082:82") //nolint: errcheck
+	flags.Set("publish-rm", "80")       //nolint: errcheck
+	flags.Set("publish-rm", "81/tcp")   //nolint: errcheck
+	flags.Set("publish-rm", "82/udp")   //nolint: errcheck
 
 	portConfigs := []swarm.PortConfig{
 		{
@@ -538,8 +538,8 @@ func TestUpdateSecretUpdateInPlace(t *testing.T) {
 	}
 
 	flags := newUpdateCommand(nil).Flags()
-	flags.Set("secret-add", "source=foo,target=foo2")
-	flags.Set("secret-rm", "foo")
+	flags.Set("secret-add", "source=foo,target=foo2") //nolint: errcheck
+	flags.Set("secret-rm", "foo")                     //nolint: errcheck
 
 	secrets := []*swarm.SecretReference{
 		{
@@ -573,19 +573,19 @@ func TestUpdateReadOnly(t *testing.T) {
 
 	// Update with --read-only=true, changed to true
 	flags := newUpdateCommand(nil).Flags()
-	flags.Set("read-only", "true")
-	updateService(context.TODO(), nil, flags, spec)
+	flags.Set("read-only", "true")                  //nolint: errcheck
+	updateService(context.TODO(), nil, flags, spec) //nolint: errcheck
 	assert.Check(t, cspec.ReadOnly)
 
 	// Update without --read-only, no change
 	flags = newUpdateCommand(nil).Flags()
-	updateService(context.TODO(), nil, flags, spec)
+	updateService(context.TODO(), nil, flags, spec) //nolint: errcheck
 	assert.Check(t, cspec.ReadOnly)
 
 	// Update with --read-only=false, changed to false
 	flags = newUpdateCommand(nil).Flags()
-	flags.Set("read-only", "false")
-	updateService(context.TODO(), nil, flags, spec)
+	flags.Set("read-only", "false")                 //nolint: errcheck
+	updateService(context.TODO(), nil, flags, spec) //nolint: errcheck
 	assert.Check(t, !cspec.ReadOnly)
 }
 
@@ -599,19 +599,19 @@ func TestUpdateInit(t *testing.T) {
 
 	// Update with --init=true
 	flags := newUpdateCommand(nil).Flags()
-	flags.Set("init", "true")
-	updateService(context.TODO(), nil, flags, spec)
+	flags.Set("init", "true")                       //nolint: errcheck
+	updateService(context.TODO(), nil, flags, spec) //nolint: errcheck
 	assert.Check(t, is.Equal(true, *cspec.Init))
 
 	// Update without --init, no change
 	flags = newUpdateCommand(nil).Flags()
-	updateService(context.TODO(), nil, flags, spec)
+	updateService(context.TODO(), nil, flags, spec) //nolint: errcheck
 	assert.Check(t, is.Equal(true, *cspec.Init))
 
 	// Update with --init=false
 	flags = newUpdateCommand(nil).Flags()
-	flags.Set("init", "false")
-	updateService(context.TODO(), nil, flags, spec)
+	flags.Set("init", "false")                      //nolint: errcheck
+	updateService(context.TODO(), nil, flags, spec) //nolint: errcheck
 	assert.Check(t, is.Equal(false, *cspec.Init))
 }
 
@@ -625,19 +625,19 @@ func TestUpdateStopSignal(t *testing.T) {
 
 	// Update with --stop-signal=SIGUSR1
 	flags := newUpdateCommand(nil).Flags()
-	flags.Set("stop-signal", "SIGUSR1")
-	updateService(context.TODO(), nil, flags, spec)
+	flags.Set("stop-signal", "SIGUSR1")             //nolint: errcheck
+	updateService(context.TODO(), nil, flags, spec) //nolint: errcheck
 	assert.Check(t, is.Equal("SIGUSR1", cspec.StopSignal))
 
 	// Update without --stop-signal, no change
 	flags = newUpdateCommand(nil).Flags()
-	updateService(context.TODO(), nil, flags, spec)
+	updateService(context.TODO(), nil, flags, spec) //nolint: errcheck
 	assert.Check(t, is.Equal("SIGUSR1", cspec.StopSignal))
 
 	// Update with --stop-signal=SIGWINCH
 	flags = newUpdateCommand(nil).Flags()
-	flags.Set("stop-signal", "SIGWINCH")
-	updateService(context.TODO(), nil, flags, spec)
+	flags.Set("stop-signal", "SIGWINCH")            //nolint: errcheck
+	updateService(context.TODO(), nil, flags, spec) //nolint: errcheck
 	assert.Check(t, is.Equal("SIGWINCH", cspec.StopSignal))
 }
 
@@ -810,13 +810,13 @@ func TestAddGenericResources(t *testing.T) {
 
 	assert.Check(t, addGenericResources(flags, task))
 
-	flags.Set(flagGenericResourcesAdd, "foo=1")
+	flags.Set(flagGenericResourcesAdd, "foo=1") //nolint: errcheck
 	assert.Check(t, addGenericResources(flags, task))
 	assert.Check(t, is.Len(task.Resources.Reservations.GenericResources, 1))
 
 	// Checks that foo isn't added a 2nd time
 	flags = newUpdateCommand(nil).Flags()
-	flags.Set(flagGenericResourcesAdd, "bar=1")
+	flags.Set(flagGenericResourcesAdd, "bar=1") //nolint: errcheck
 	assert.Check(t, addGenericResources(flags, task))
 	assert.Check(t, is.Len(task.Resources.Reservations.GenericResources, 2))
 }
@@ -827,18 +827,18 @@ func TestRemoveGenericResources(t *testing.T) {
 
 	assert.Check(t, removeGenericResources(flags, task))
 
-	flags.Set(flagGenericResourcesRemove, "foo")
+	flags.Set(flagGenericResourcesRemove, "foo") //nolint: errcheck
 	assert.Check(t, is.ErrorContains(removeGenericResources(flags, task), ""))
 
 	flags = newUpdateCommand(nil).Flags()
-	flags.Set(flagGenericResourcesAdd, "foo=1")
-	addGenericResources(flags, task)
+	flags.Set(flagGenericResourcesAdd, "foo=1") //nolint: errcheck
+	addGenericResources(flags, task)            //nolint: errcheck
 	flags = newUpdateCommand(nil).Flags()
-	flags.Set(flagGenericResourcesAdd, "bar=1")
-	addGenericResources(flags, task)
+	flags.Set(flagGenericResourcesAdd, "bar=1") //nolint: errcheck
+	addGenericResources(flags, task)            //nolint: errcheck
 
 	flags = newUpdateCommand(nil).Flags()
-	flags.Set(flagGenericResourcesRemove, "foo")
+	flags.Set(flagGenericResourcesRemove, "foo") //nolint: errcheck
 	assert.Check(t, removeGenericResources(flags, task))
 	assert.Check(t, is.Len(task.Resources.Reservations.GenericResources, 1))
 }
@@ -922,7 +922,7 @@ func TestUpdateMaxReplicas(t *testing.T) {
 	}
 
 	flags := newUpdateCommand(nil).Flags()
-	flags.Set(flagMaxReplicas, "2")
+	flags.Set(flagMaxReplicas, "2") //nolint: errcheck
 	err := updateService(ctx, nil, flags, &svc)
 	assert.NilError(t, err)
 
@@ -1197,7 +1197,7 @@ func TestUpdateGetUpdatedConfigs(t *testing.T) {
 		t.Run(tc.name, func(t *testing.T) {
 			flags := newUpdateCommand(nil).Flags()
 			for _, f := range tc.flags {
-				flags.Set(f[0], f[1])
+				flags.Set(f[0], f[1]) //nolint: errcheck
 			}
 
 			// fakeConfigAPIClientList is actually defined in create_test.go,
@@ -1334,7 +1334,7 @@ func TestUpdateCredSpec(t *testing.T) {
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
 			flags := newUpdateCommand(nil).Flags()
-			flags.Set(flagCredentialSpec, tc.flagVal)
+			flags.Set(flagCredentialSpec, tc.flagVal) //nolint: errcheck
 
 			updateCredSpecConfig(flags, tc.spec)
 			// handle the case where tc.spec.Privileges is nil

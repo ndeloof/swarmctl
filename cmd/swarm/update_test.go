@@ -73,7 +73,7 @@ func TestSwarmUpdateErrors(t *testing.T) {
 			}))
 		cmd.SetArgs(tc.args)
 		for key, value := range tc.flags {
-			cmd.Flags().Set(key, value)
+			cmd.Flags().Set(key, value) //nolint: errcheck
 		}
 		cmd.SetOut(io.Discard)
 		assert.ErrorContains(t, cmd.Execute(), tc.expectedError)
@@ -174,7 +174,7 @@ func TestSwarmUpdate(t *testing.T) {
 		cmd := newUpdateCommand(cli)
 		cmd.SetArgs(tc.args)
 		for key, value := range tc.flags {
-			cmd.Flags().Set(key, value)
+			cmd.Flags().Set(key, value) //nolint: errcheck
 		}
 		cmd.SetOut(cli.OutBuffer())
 		assert.NilError(t, cmd.Execute())

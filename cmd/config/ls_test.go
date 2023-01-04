@@ -6,10 +6,10 @@ import (
 	"time"
 
 	"github.com/docker/cli/cli/config/configfile"
-	"github.com/docker/cli/internal/test"
-	. "github.com/docker/cli/internal/test/builders" // Import builders to get the builder function as package function
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/swarm"
+	"github.com/moby/swarmctl/internal/test"
+	. "github.com/moby/swarmctl/internal/test/builders" // Import builders to get the builder function as package function
 	"github.com/pkg/errors"
 	"gotest.tools/v3/assert"
 	is "gotest.tools/v3/assert/cmp"
@@ -50,22 +50,22 @@ func TestConfigList(t *testing.T) {
 		configListFunc: func(options types.ConfigListOptions) ([]swarm.Config, error) {
 			return []swarm.Config{
 				*Config(ConfigID("ID-1-foo"),
-					ConfigName("1-foo"),
-					ConfigVersion(swarm.Version{Index: 10}),
-					ConfigCreatedAt(time.Now().Add(-2*time.Hour)),
-					ConfigUpdatedAt(time.Now().Add(-1*time.Hour)),
+					ConfigName("1-foo"),                           // nolint: typecheck
+					ConfigVersion(swarm.Version{Index: 10}),       // nolint: typecheck
+					ConfigCreatedAt(time.Now().Add(-2*time.Hour)), // nolint: typecheck
+					ConfigUpdatedAt(time.Now().Add(-1*time.Hour)), // nolint: typecheck
 				),
 				*Config(ConfigID("ID-10-foo"),
-					ConfigName("10-foo"),
-					ConfigVersion(swarm.Version{Index: 11}),
-					ConfigCreatedAt(time.Now().Add(-2*time.Hour)),
-					ConfigUpdatedAt(time.Now().Add(-1*time.Hour)),
+					ConfigName("10-foo"),                          // nolint: typecheck
+					ConfigVersion(swarm.Version{Index: 11}),       // nolint: typecheck
+					ConfigCreatedAt(time.Now().Add(-2*time.Hour)), // nolint: typecheck
+					ConfigUpdatedAt(time.Now().Add(-1*time.Hour)), // nolint: typecheck
 				),
 				*Config(ConfigID("ID-2-foo"),
-					ConfigName("2-foo"),
-					ConfigVersion(swarm.Version{Index: 11}),
-					ConfigCreatedAt(time.Now().Add(-2*time.Hour)),
-					ConfigUpdatedAt(time.Now().Add(-1*time.Hour)),
+					ConfigName("2-foo"),                           // nolint: typecheck
+					ConfigVersion(swarm.Version{Index: 11}),       // nolint: typecheck
+					ConfigCreatedAt(time.Now().Add(-2*time.Hour)), // nolint: typecheck
+					ConfigUpdatedAt(time.Now().Add(-1*time.Hour)), // nolint: typecheck
 				),
 			}, nil
 		},
@@ -87,7 +87,7 @@ func TestConfigListWithQuietOption(t *testing.T) {
 		},
 	})
 	cmd := newConfigListCommand(cli)
-	cmd.Flags().Set("quiet", "true")
+	cmd.Flags().Set("quiet", "true") //nolint: errcheck
 	assert.NilError(t, cmd.Execute())
 	golden.Assert(t, cli.OutBuffer().String(), "config-list-with-quiet-option.golden")
 }
@@ -123,7 +123,7 @@ func TestConfigListWithFormat(t *testing.T) {
 		},
 	})
 	cmd := newConfigListCommand(cli)
-	cmd.Flags().Set("format", "{{ .Name }} {{ .Labels }}")
+	cmd.Flags().Set("format", "{{ .Name }} {{ .Labels }}") //nolint: errcheck
 	assert.NilError(t, cmd.Execute())
 	golden.Assert(t, cli.OutBuffer().String(), "config-list-with-format.golden")
 }
@@ -135,23 +135,23 @@ func TestConfigListWithFilter(t *testing.T) {
 			assert.Check(t, is.Equal("lbl1=Label-bar", options.Filters.Get("label")[0]))
 			return []swarm.Config{
 				*Config(ConfigID("ID-foo"),
-					ConfigName("foo"),
-					ConfigVersion(swarm.Version{Index: 10}),
-					ConfigCreatedAt(time.Now().Add(-2*time.Hour)),
-					ConfigUpdatedAt(time.Now().Add(-1*time.Hour)),
+					ConfigName("foo"),                             // nolint: typecheck
+					ConfigVersion(swarm.Version{Index: 10}),       // nolint: typecheck
+					ConfigCreatedAt(time.Now().Add(-2*time.Hour)), // nolint: typecheck
+					ConfigUpdatedAt(time.Now().Add(-1*time.Hour)), // nolint: typecheck
 				),
 				*Config(ConfigID("ID-bar"),
-					ConfigName("bar"),
-					ConfigVersion(swarm.Version{Index: 11}),
-					ConfigCreatedAt(time.Now().Add(-2*time.Hour)),
-					ConfigUpdatedAt(time.Now().Add(-1*time.Hour)),
+					ConfigName("bar"),                             // nolint: typecheck
+					ConfigVersion(swarm.Version{Index: 11}),       // nolint: typecheck
+					ConfigCreatedAt(time.Now().Add(-2*time.Hour)), // nolint: typecheck
+					ConfigUpdatedAt(time.Now().Add(-1*time.Hour)), // nolint: typecheck
 				),
 			}, nil
 		},
 	})
 	cmd := newConfigListCommand(cli)
-	cmd.Flags().Set("filter", "name=foo")
-	cmd.Flags().Set("filter", "label=lbl1=Label-bar")
+	cmd.Flags().Set("filter", "name=foo")             //nolint: errcheck
+	cmd.Flags().Set("filter", "label=lbl1=Label-bar") //nolint: errcheck
 	assert.NilError(t, cmd.Execute())
 	golden.Assert(t, cli.OutBuffer().String(), "config-list-with-filter.golden")
 }

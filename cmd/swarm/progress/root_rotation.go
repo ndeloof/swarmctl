@@ -73,7 +73,7 @@ func RootRotationProgress(ctx context.Context, dclient client.APIClient, progres
 
 func updateProgress(progressOut progress.Output, desiredTLSInfo swarm.TLSInfo, nodes []swarm.Node, rootRotationInProgress bool) bool {
 	// write the current desired root cert's digest, because the desired root certs might be too long
-	progressOut.WriteProgress(progress.Progress{
+	progressOut.WriteProgress(progress.Progress{ //nolint: errcheck
 		ID:     "desired root digest",
 		Action: digest.FromBytes([]byte(desiredTLSInfo.TrustRoot)).String(),
 	})
@@ -92,7 +92,7 @@ func updateProgress(progressOut progress.Output, desiredTLSInfo swarm.TLSInfo, n
 	}
 
 	total := int64(len(nodes))
-	progressOut.WriteProgress(progress.Progress{
+	progressOut.WriteProgress(progress.Progress{ //nolint: errcheck
 		ID:      certsRotatedStr,
 		Action:  certsAction,
 		Current: certsRight,
@@ -109,12 +109,12 @@ func updateProgress(progressOut progress.Output, desiredTLSInfo swarm.TLSInfo, n
 	}
 
 	if certsRight == total && !rootRotationInProgress {
-		progressOut.WriteProgress(rootsProgress)
+		progressOut.WriteProgress(rootsProgress) //nolint: errcheck
 		return certsRight == total && trustRootsRight == total
 	}
 
 	// we still have certs that need renewing, so display that there are zero roots rotated yet
 	rootsProgress.Current = 0
-	progressOut.WriteProgress(rootsProgress)
+	progressOut.WriteProgress(rootsProgress) //nolint: errcheck
 	return false
 }
