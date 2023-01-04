@@ -71,7 +71,7 @@ func TestNodeInspectErrors(t *testing.T) {
 			}))
 		cmd.SetArgs(tc.args)
 		for key, value := range tc.flags {
-			cmd.Flags().Set(key, value)
+			cmd.Flags().Set(key, value) //nolint:errcheck
 		}
 		cmd.SetOut(io.Discard)
 		assert.ErrorContains(t, cmd.Execute(), tc.expectedError)
@@ -110,7 +110,7 @@ func TestNodeInspectPretty(t *testing.T) {
 		})
 		cmd := newInspectCommand(cli)
 		cmd.SetArgs([]string{"nodeID"})
-		cmd.Flags().Set("pretty", "true")
+		cmd.Flags().Set("pretty", "true") //nolint:errcheck
 		assert.NilError(t, cmd.Execute())
 		golden.Assert(t, cli.OutBuffer().String(), fmt.Sprintf("node-inspect-pretty.%s.golden", tc.name))
 	}

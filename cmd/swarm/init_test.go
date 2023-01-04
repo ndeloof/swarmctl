@@ -71,7 +71,7 @@ func TestSwarmInitErrorOnAPIFailure(t *testing.T) {
 				nodeInspectFunc:       tc.nodeInspectFunc,
 			}))
 		for key, value := range tc.flags {
-			cmd.Flags().Set(key, value)
+			cmd.Flags().Set(key, value) //nolint: errcheck
 		}
 		cmd.SetOut(io.Discard)
 		assert.Error(t, cmd.Execute(), tc.expectedError)
@@ -117,7 +117,7 @@ func TestSwarmInit(t *testing.T) {
 		})
 		cmd := newInitCommand(cli)
 		for key, value := range tc.flags {
-			cmd.Flags().Set(key, value)
+			cmd.Flags().Set(key, value) //nolint: errcheck
 		}
 		assert.NilError(t, cmd.Execute())
 		golden.Assert(t, cli.OutBuffer().String(), fmt.Sprintf("init-%s.golden", tc.name))

@@ -6,10 +6,10 @@ import (
 	"time"
 
 	"github.com/docker/cli/cli/config/configfile"
-	"github.com/docker/cli/internal/test"
-	. "github.com/docker/cli/internal/test/builders" // Import builders to get the builder function as package function
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/swarm"
+	"github.com/moby/swarmctl/internal/test"
+	. "github.com/moby/swarmctl/internal/test/builders" // Import builders to get the builder function as package function
 	"github.com/pkg/errors"
 	"gotest.tools/v3/assert"
 	is "gotest.tools/v3/assert/cmp"
@@ -76,7 +76,7 @@ func TestStackPs(t *testing.T) {
 		{
 			doc: "WithQuietOption",
 			taskListFunc: func(options types.TaskListOptions) ([]swarm.Task, error) {
-				return []swarm.Task{*Task(TaskID("id-foo"))}, nil
+				return []swarm.Task{*Task(TaskID("id-foo"))}, nil // nolint: typecheck
 			},
 			args: []string{"foo"},
 			flags: map[string]string{
@@ -87,7 +87,7 @@ func TestStackPs(t *testing.T) {
 		{
 			doc: "WithNoTruncOption",
 			taskListFunc: func(options types.TaskListOptions) ([]swarm.Task, error) {
-				return []swarm.Task{*Task(TaskID("xn4cypcov06f2w8gsbaf2lst3"))}, nil
+				return []swarm.Task{*Task(TaskID("xn4cypcov06f2w8gsbaf2lst3"))}, nil // nolint: typecheck
 			},
 			args: []string{"foo"},
 			flags: map[string]string{
@@ -99,12 +99,12 @@ func TestStackPs(t *testing.T) {
 		{
 			doc: "WithNoResolveOption",
 			taskListFunc: func(options types.TaskListOptions) ([]swarm.Task, error) {
-				return []swarm.Task{*Task(
-					TaskNodeID("id-node-foo"),
+				return []swarm.Task{*Task( // nolint: typecheck
+					TaskNodeID("id-node-foo"), // nolint: typecheck
 				)}, nil
 			},
 			nodeInspectWithRaw: func(ref string) (swarm.Node, []byte, error) {
-				return *Node(NodeName("node-name-bar")), nil, nil
+				return *Node(NodeName("node-name-bar")), nil, nil // nolint: typecheck
 			},
 			args: []string{"foo"},
 			flags: map[string]string{
@@ -116,7 +116,7 @@ func TestStackPs(t *testing.T) {
 		{
 			doc: "WithFormat",
 			taskListFunc: func(options types.TaskListOptions) ([]swarm.Task, error) {
-				return []swarm.Task{*Task(TaskServiceID("service-id-foo"))}, nil
+				return []swarm.Task{*Task(TaskServiceID("service-id-foo"))}, nil // nolint: typecheck
 			},
 			args: []string{"foo"},
 			flags: map[string]string{
@@ -127,7 +127,7 @@ func TestStackPs(t *testing.T) {
 		{
 			doc: "WithConfigFormat",
 			taskListFunc: func(options types.TaskListOptions) ([]swarm.Task, error) {
-				return []swarm.Task{*Task(TaskServiceID("service-id-foo"))}, nil
+				return []swarm.Task{*Task(TaskServiceID("service-id-foo"))}, nil // nolint: typecheck
 			},
 			config: configfile.ConfigFile{
 				TasksFormat: "{{ .Name }}",
@@ -139,16 +139,16 @@ func TestStackPs(t *testing.T) {
 			doc: "WithoutFormat",
 			taskListFunc: func(options types.TaskListOptions) ([]swarm.Task, error) {
 				return []swarm.Task{*Task(
-					TaskID("id-foo"),
-					TaskServiceID("service-id-foo"),
-					TaskNodeID("id-node"),
-					WithTaskSpec(TaskImage("myimage:mytag")),
-					TaskDesiredState(swarm.TaskStateReady),
-					WithStatus(TaskState(swarm.TaskStateFailed), Timestamp(time.Now().Add(-2*time.Hour))),
+					TaskID("id-foo"),                         // nolint: typecheck
+					TaskServiceID("service-id-foo"),          // nolint: typecheck
+					TaskNodeID("id-node"),                    // nolint: typecheck
+					WithTaskSpec(TaskImage("myimage:mytag")), // nolint: typecheck
+					TaskDesiredState(swarm.TaskStateReady),   // nolint: typecheck
+					WithStatus(TaskState(swarm.TaskStateFailed), Timestamp(time.Now().Add(-2*time.Hour))), // nolint: typecheck
 				)}, nil
 			},
 			nodeInspectWithRaw: func(ref string) (swarm.Node, []byte, error) {
-				return *Node(NodeName("node-name-bar")), nil, nil
+				return *Node(NodeName("node-name-bar")), nil, nil // nolint: typecheck
 			},
 			args:   []string{"foo"},
 			golden: "stack-ps-without-format.golden",
@@ -166,7 +166,7 @@ func TestStackPs(t *testing.T) {
 			cmd := newPsCommand(cli)
 			cmd.SetArgs(tc.args)
 			for key, value := range tc.flags {
-				cmd.Flags().Set(key, value)
+				cmd.Flags().Set(key, value) //nolint: errcheck
 			}
 			cmd.SetOut(io.Discard)
 

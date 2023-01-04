@@ -122,7 +122,7 @@ func TestUpdateNodeFilter(t *testing.T) {
 		},
 	}
 
-	updateNodeFilter(context.Background(), client, filter)
+	updateNodeFilter(context.Background(), client, filter) //nolint:errcheck
 
 	expected := filters.NewArgs(
 		filters.Arg("node", "one"),

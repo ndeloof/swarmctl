@@ -57,7 +57,7 @@ func TestNodePsErrors(t *testing.T) {
 		cmd := newPsCommand(cli)
 		cmd.SetArgs(tc.args)
 		for key, value := range tc.flags {
-			cmd.Flags().Set(key, value)
+			cmd.Flags().Set(key, value) //nolint: errcheck
 		}
 		cmd.SetOut(io.Discard)
 		assert.Error(t, cmd.Execute(), tc.expectedError)
@@ -142,7 +142,7 @@ func TestNodePs(t *testing.T) {
 		cmd := newPsCommand(cli)
 		cmd.SetArgs(tc.args)
 		for key, value := range tc.flags {
-			cmd.Flags().Set(key, value)
+			cmd.Flags().Set(key, value) //nolint: errcheck
 		}
 		assert.NilError(t, cmd.Execute())
 		golden.Assert(t, cli.OutBuffer().String(), fmt.Sprintf("node-ps.%s.golden", tc.name))

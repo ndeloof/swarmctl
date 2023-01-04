@@ -249,19 +249,19 @@ func TestToServiceUpdateRollback(t *testing.T) {
 	// Note: in test-situation, the flags are only used to detect if an option
 	// was set; the actual value itself is read from the serviceOptions below.
 	flags := newCreateCommand(nil).Flags()
-	flags.Set("update-parallelism", "23")
-	flags.Set("update-delay", "34s")
-	flags.Set("update-monitor", "54321ns")
-	flags.Set("update-failure-action", "pause")
-	flags.Set("update-max-failure-ratio", "0.6")
-	flags.Set("update-order", "stop-first")
+	flags.Set("update-parallelism", "23")        //nolint:errcheck
+	flags.Set("update-delay", "34s")             //nolint:errcheck
+	flags.Set("update-monitor", "54321ns")       //nolint:errcheck
+	flags.Set("update-failure-action", "pause")  //nolint:errcheck
+	flags.Set("update-max-failure-ratio", "0.6") //nolint:errcheck
+	flags.Set("update-order", "stop-first")      //nolint:errcheck
 
-	flags.Set("rollback-parallelism", "12")
-	flags.Set("rollback-delay", "23s")
-	flags.Set("rollback-monitor", "12345ns")
-	flags.Set("rollback-failure-action", "continue")
-	flags.Set("rollback-max-failure-ratio", "0.5")
-	flags.Set("rollback-order", "start-first")
+	flags.Set("rollback-parallelism", "12")          //nolint:errcheck
+	flags.Set("rollback-delay", "23s")               //nolint:errcheck
+	flags.Set("rollback-monitor", "12345ns")         //nolint:errcheck
+	flags.Set("rollback-failure-action", "continue") //nolint:errcheck
+	flags.Set("rollback-max-failure-ratio", "0.5")   //nolint:errcheck
+	flags.Set("rollback-order", "start-first")       //nolint:errcheck
 
 	o := newServiceOptions()
 	o.mode = "replicated"
@@ -290,8 +290,8 @@ func TestToServiceUpdateRollback(t *testing.T) {
 
 func TestToServiceUpdateRollbackOrder(t *testing.T) {
 	flags := newCreateCommand(nil).Flags()
-	flags.Set("update-order", "start-first")
-	flags.Set("rollback-order", "start-first")
+	flags.Set("update-order", "start-first")   //nolint: errcheck
+	flags.Set("rollback-order", "start-first") //nolint: errcheck
 
 	o := newServiceOptions()
 	o.mode = "replicated"
@@ -316,8 +316,8 @@ func TestToServiceMaxReplicasGlobalModeConflict(t *testing.T) {
 func TestToServiceSysCtls(t *testing.T) {
 	o := newServiceOptions()
 	o.mode = "replicated"
-	o.sysctls.Set("net.ipv4.ip_forward=1")
-	o.sysctls.Set("kernel.shmmax=123456")
+	o.sysctls.Set("net.ipv4.ip_forward=1") //nolint:errcheck
+	o.sysctls.Set("kernel.shmmax=123456")  //nolint:errcheck
 
 	expected := map[string]string{"net.ipv4.ip_forward": "1", "kernel.shmmax": "123456"}
 	flags := newCreateCommand(nil).Flags()

@@ -44,7 +44,7 @@ func TestSetConfigsWithCredSpecAndConfigs(t *testing.T) {
 	// we can't directly access the internal fields of the ConfigOpt struct, so
 	// we need to let it do the parsing
 	configOpt := &cliopts.ConfigOpt{}
-	configOpt.Set("bar")
+	configOpt.Set("bar") //nolint:errcheck
 	opts := &serviceOptions{
 		credentialSpec: credentialSpecOpt{
 			value: &swarm.CredentialSpec{
@@ -185,7 +185,7 @@ func TestSetConfigsOnlyCredSpec(t *testing.T) {
 // CredentialSpec) is needed.
 func TestSetConfigsOnlyConfigs(t *testing.T) {
 	configOpt := &cliopts.ConfigOpt{}
-	configOpt.Set("bar")
+	configOpt.Set("bar") //nolint:errcheck
 	opts := &serviceOptions{
 		configs: *configOpt,
 	}

@@ -58,14 +58,14 @@ func newLogsCommand(dockerCli command.Cli) *cobra.Command {
 	flags.BoolVar(&opts.noResolve, "no-resolve", false, "Do not map IDs to Names in output")
 	flags.BoolVar(&opts.noTrunc, "no-trunc", false, "Do not truncate output")
 	flags.BoolVar(&opts.raw, "raw", false, "Do not neatly format logs")
-	flags.SetAnnotation("raw", "version", []string{"1.30"})
+	flags.SetAnnotation("raw", "version", []string{"1.30"}) //nolint: errcheck
 	flags.BoolVar(&opts.noTaskIDs, "no-task-ids", false, "Do not include task IDs in output")
 	// options identical to container logs
 	flags.BoolVarP(&opts.follow, "follow", "f", false, "Follow log output")
 	flags.StringVar(&opts.since, "since", "", "Show logs since timestamp (e.g. 2013-01-02T13:23:37Z) or relative (e.g. 42m for 42 minutes)")
 	flags.BoolVarP(&opts.timestamps, "timestamps", "t", false, "Show timestamps")
 	flags.BoolVar(&opts.details, "details", false, "Show extra details provided to logs")
-	flags.SetAnnotation("details", "version", []string{"1.30"})
+	flags.SetAnnotation("details", "version", []string{"1.30"}) //nolint: errcheck
 	flags.StringVarP(&opts.tail, "tail", "n", "all", "Number of lines to show from the end of the logs")
 	return cmd
 }

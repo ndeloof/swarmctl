@@ -45,32 +45,32 @@ func newCreateCommand(dockerCli command.Cli) *cobra.Command {
 	flags.Var(&opts.mounts, flagMount, "Attach a filesystem mount to the service")
 	flags.Var(&opts.constraints, flagConstraint, "Placement constraints")
 	flags.Var(&opts.placementPrefs, flagPlacementPref, "Add a placement preference")
-	flags.SetAnnotation(flagPlacementPref, "version", []string{"1.28"})
+	flags.SetAnnotation(flagPlacementPref, "version", []string{"1.28"}) //nolint: errcheck
 	flags.Var(&opts.networks, flagNetwork, "Network attachments")
 	flags.Var(&opts.secrets, flagSecret, "Specify secrets to expose to the service")
-	flags.SetAnnotation(flagSecret, "version", []string{"1.25"})
+	flags.SetAnnotation(flagSecret, "version", []string{"1.25"}) //nolint: errcheck
 	flags.Var(&opts.configs, flagConfig, "Specify configurations to expose to the service")
-	flags.SetAnnotation(flagConfig, "version", []string{"1.30"})
+	flags.SetAnnotation(flagConfig, "version", []string{"1.30"}) //nolint: errcheck
 	flags.VarP(&opts.endpoint.publishPorts, flagPublish, "p", "Publish a port as a node port")
 	flags.Var(&opts.groups, flagGroup, "Set one or more supplementary user groups for the container")
-	flags.SetAnnotation(flagGroup, "version", []string{"1.25"})
+	flags.SetAnnotation(flagGroup, "version", []string{"1.25"}) //nolint: errcheck
 	flags.Var(&opts.dns, flagDNS, "Set custom DNS servers")
-	flags.SetAnnotation(flagDNS, "version", []string{"1.25"})
+	flags.SetAnnotation(flagDNS, "version", []string{"1.25"}) //nolint: errcheck
 	flags.Var(&opts.dnsOption, flagDNSOption, "Set DNS options")
-	flags.SetAnnotation(flagDNSOption, "version", []string{"1.25"})
+	flags.SetAnnotation(flagDNSOption, "version", []string{"1.25"}) //nolint: errcheck
 	flags.Var(&opts.dnsSearch, flagDNSSearch, "Set custom DNS search domains")
-	flags.SetAnnotation(flagDNSSearch, "version", []string{"1.25"})
+	flags.SetAnnotation(flagDNSSearch, "version", []string{"1.25"}) //nolint: errcheck
 	flags.Var(&opts.hosts, flagHost, "Set one or more custom host-to-IP mappings (host:ip)")
-	flags.SetAnnotation(flagHost, "version", []string{"1.25"})
+	flags.SetAnnotation(flagHost, "version", []string{"1.25"}) //nolint: errcheck
 	flags.BoolVar(&opts.init, flagInit, false, "Use an init inside each service container to forward signals and reap processes")
-	flags.SetAnnotation(flagInit, "version", []string{"1.37"})
+	flags.SetAnnotation(flagInit, "version", []string{"1.37"}) //nolint: errcheck
 	flags.Var(&opts.sysctls, flagSysCtl, "Sysctl options")
-	flags.SetAnnotation(flagSysCtl, "version", []string{"1.40"})
+	flags.SetAnnotation(flagSysCtl, "version", []string{"1.40"}) //nolint: errcheck
 	flags.Var(&opts.ulimits, flagUlimit, "Ulimit options")
-	flags.SetAnnotation(flagUlimit, "version", []string{"1.41"})
+	flags.SetAnnotation(flagUlimit, "version", []string{"1.41"}) //nolint: errcheck
 
 	flags.Var(cliopts.NewListOptsRef(&opts.resources.resGenericResources, ValidateSingleGenericResource), "generic-resource", "User defined resources")
-	flags.SetAnnotation(flagHostAdd, "version", []string{"1.32"})
+	flags.SetAnnotation(flagHostAdd, "version", []string{"1.32"}) //nolint: errcheck
 
 	flags.SetInterspersed(false)
 	return cmd

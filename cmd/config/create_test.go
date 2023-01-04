@@ -8,9 +8,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/docker/cli/internal/test"
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/swarm"
+	"github.com/moby/swarmctl/internal/test"
 	"github.com/pkg/errors"
 	"gotest.tools/v3/assert"
 	is "gotest.tools/v3/assert/cmp"
@@ -109,8 +109,8 @@ func TestConfigCreateWithLabels(t *testing.T) {
 
 	cmd := newConfigCreateCommand(cli)
 	cmd.SetArgs([]string{name, filepath.Join("testdata", configDataFile)})
-	cmd.Flags().Set("label", "lbl1=Label-foo")
-	cmd.Flags().Set("label", "lbl2=Label-bar")
+	cmd.Flags().Set("label", "lbl1=Label-foo") //nolint: errcheck
+	cmd.Flags().Set("label", "lbl2=Label-bar") //nolint: errcheck
 	assert.NilError(t, cmd.Execute())
 	assert.Check(t, is.Equal("ID-"+name, strings.TrimSpace(cli.OutBuffer().String())))
 }
@@ -139,7 +139,7 @@ func TestConfigCreateWithTemplatingDriver(t *testing.T) {
 
 	cmd := newConfigCreateCommand(cli)
 	cmd.SetArgs([]string{name, filepath.Join("testdata", configDataFile)})
-	cmd.Flags().Set("template-driver", expectedDriver.Name)
+	cmd.Flags().Set("template-driver", expectedDriver.Name) //nolint:errcheck
 	assert.NilError(t, cmd.Execute())
 	assert.Check(t, is.Equal("ID-"+name, strings.TrimSpace(cli.OutBuffer().String())))
 }

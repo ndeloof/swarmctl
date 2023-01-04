@@ -815,7 +815,7 @@ func buildServiceDefaultFlagMapping() flagDefaults {
 
 func addDetachFlag(flags *pflag.FlagSet, detach *bool) {
 	flags.BoolVarP(detach, flagDetach, "d", false, "Exit immediately instead of waiting for the service to converge")
-	flags.SetAnnotation(flagDetach, "version", []string{"1.29"})
+	flags.SetAnnotation(flagDetach, "version", []string{"1.29"}) //nolint: errcheck
 }
 
 // addServiceFlags adds all flags that are common to both `create` and `update`.
@@ -834,28 +834,28 @@ func addServiceFlags(flags *pflag.FlagSet, opts *serviceOptions, defaultFlagValu
 	flags.StringVarP(&opts.workdir, flagWorkdir, "w", "", "Working directory inside the container")
 	flags.StringVarP(&opts.user, flagUser, "u", "", "Username or UID (format: <name|uid>[:<group|gid>])")
 	flags.Var(&opts.credentialSpec, flagCredentialSpec, "Credential spec for managed service account (Windows only)")
-	flags.SetAnnotation(flagCredentialSpec, "version", []string{"1.29"})
+	flags.SetAnnotation(flagCredentialSpec, "version", []string{"1.29"}) //nolint: errcheck
 	flags.StringVar(&opts.hostname, flagHostname, "", "Container hostname")
-	flags.SetAnnotation(flagHostname, "version", []string{"1.25"})
+	flags.SetAnnotation(flagHostname, "version", []string{"1.25"}) //nolint: errcheck
 	flags.Var(&opts.entrypoint, flagEntrypoint, "Overwrite the default ENTRYPOINT of the image")
 	flags.Var(&opts.capAdd, flagCapAdd, "Add Linux capabilities")
-	flags.SetAnnotation(flagCapAdd, "version", []string{"1.41"})
+	flags.SetAnnotation(flagCapAdd, "version", []string{"1.41"}) //nolint: errcheck
 	flags.Var(&opts.capDrop, flagCapDrop, "Drop Linux capabilities")
-	flags.SetAnnotation(flagCapDrop, "version", []string{"1.41"})
+	flags.SetAnnotation(flagCapDrop, "version", []string{"1.41"}) //nolint: errcheck
 
 	flags.Var(&opts.resources.limitCPU, flagLimitCPU, "Limit CPUs")
 	flags.Var(&opts.resources.limitMemBytes, flagLimitMemory, "Limit Memory")
 	flags.Var(&opts.resources.resCPU, flagReserveCPU, "Reserve CPUs")
 	flags.Var(&opts.resources.resMemBytes, flagReserveMemory, "Reserve Memory")
 	flags.Int64Var(&opts.resources.limitPids, flagLimitPids, 0, "Limit maximum number of processes (default 0 = unlimited)")
-	flags.SetAnnotation(flagLimitPids, "version", []string{"1.41"})
+	flags.SetAnnotation(flagLimitPids, "version", []string{"1.41"}) //nolint: errcheck
 
 	flags.Var(&opts.stopGrace, flagStopGracePeriod, flagDesc(flagStopGracePeriod, "Time to wait before force killing a container (ns|us|ms|s|m|h)"))
 	flags.Var(&opts.replicas, flagReplicas, "Number of tasks")
 	flags.Var(&opts.maxConcurrent, flagConcurrent, "Number of job tasks to run concurrently (default equal to --replicas)")
-	flags.SetAnnotation(flagConcurrent, "version", []string{"1.41"})
+	flags.SetAnnotation(flagConcurrent, "version", []string{"1.41"}) //nolint: errcheck
 	flags.Uint64Var(&opts.maxReplicas, flagMaxReplicas, defaultFlagValues.getUint64(flagMaxReplicas), "Maximum number of tasks per node (default 0 = unlimited)")
-	flags.SetAnnotation(flagMaxReplicas, "version", []string{"1.40"})
+	flags.SetAnnotation(flagMaxReplicas, "version", []string{"1.40"}) //nolint: errcheck
 
 	flags.StringVar(&opts.restartPolicy.condition, flagRestartCondition, "", flagDesc(flagRestartCondition, `Restart when condition is met ("none"|"on-failure"|"any")`))
 	flags.Var(&opts.restartPolicy.delay, flagRestartDelay, flagDesc(flagRestartDelay, "Delay between restart attempts (ns|us|ms|s|m|h)"))
@@ -866,59 +866,59 @@ func addServiceFlags(flags *pflag.FlagSet, opts *serviceOptions, defaultFlagValu
 	flags.Uint64Var(&opts.update.parallelism, flagUpdateParallelism, defaultFlagValues.getUint64(flagUpdateParallelism), "Maximum number of tasks updated simultaneously (0 to update all at once)")
 	flags.DurationVar(&opts.update.delay, flagUpdateDelay, 0, flagDesc(flagUpdateDelay, "Delay between updates (ns|us|ms|s|m|h)"))
 	flags.DurationVar(&opts.update.monitor, flagUpdateMonitor, 0, flagDesc(flagUpdateMonitor, "Duration after each task update to monitor for failure (ns|us|ms|s|m|h)"))
-	flags.SetAnnotation(flagUpdateMonitor, "version", []string{"1.25"})
+	flags.SetAnnotation(flagUpdateMonitor, "version", []string{"1.25"}) //nolint: errcheck
 	flags.StringVar(&opts.update.onFailure, flagUpdateFailureAction, "", flagDesc(flagUpdateFailureAction, `Action on update failure ("pause"|"continue"|"rollback")`))
 	flags.Var(&opts.update.maxFailureRatio, flagUpdateMaxFailureRatio, flagDesc(flagUpdateMaxFailureRatio, "Failure rate to tolerate during an update"))
-	flags.SetAnnotation(flagUpdateMaxFailureRatio, "version", []string{"1.25"})
+	flags.SetAnnotation(flagUpdateMaxFailureRatio, "version", []string{"1.25"}) //nolint: errcheck
 	flags.StringVar(&opts.update.order, flagUpdateOrder, "", flagDesc(flagUpdateOrder, `Update order ("start-first"|"stop-first")`))
-	flags.SetAnnotation(flagUpdateOrder, "version", []string{"1.29"})
+	flags.SetAnnotation(flagUpdateOrder, "version", []string{"1.29"}) //nolint: errcheck
 
 	flags.Uint64Var(&opts.rollback.parallelism, flagRollbackParallelism, defaultFlagValues.getUint64(flagRollbackParallelism),
 		"Maximum number of tasks rolled back simultaneously (0 to roll back all at once)")
-	flags.SetAnnotation(flagRollbackParallelism, "version", []string{"1.28"})
+	flags.SetAnnotation(flagRollbackParallelism, "version", []string{"1.28"}) //nolint: errcheck
 	flags.DurationVar(&opts.rollback.delay, flagRollbackDelay, 0, flagDesc(flagRollbackDelay, "Delay between task rollbacks (ns|us|ms|s|m|h)"))
-	flags.SetAnnotation(flagRollbackDelay, "version", []string{"1.28"})
+	flags.SetAnnotation(flagRollbackDelay, "version", []string{"1.28"}) //nolint: errcheck
 	flags.DurationVar(&opts.rollback.monitor, flagRollbackMonitor, 0, flagDesc(flagRollbackMonitor, "Duration after each task rollback to monitor for failure (ns|us|ms|s|m|h)"))
-	flags.SetAnnotation(flagRollbackMonitor, "version", []string{"1.28"})
+	flags.SetAnnotation(flagRollbackMonitor, "version", []string{"1.28"}) //nolint: errcheck
 	flags.StringVar(&opts.rollback.onFailure, flagRollbackFailureAction, "", flagDesc(flagRollbackFailureAction, `Action on rollback failure ("pause"|"continue")`))
-	flags.SetAnnotation(flagRollbackFailureAction, "version", []string{"1.28"})
+	flags.SetAnnotation(flagRollbackFailureAction, "version", []string{"1.28"}) //nolint: errcheck
 	flags.Var(&opts.rollback.maxFailureRatio, flagRollbackMaxFailureRatio, flagDesc(flagRollbackMaxFailureRatio, "Failure rate to tolerate during a rollback"))
-	flags.SetAnnotation(flagRollbackMaxFailureRatio, "version", []string{"1.28"})
+	flags.SetAnnotation(flagRollbackMaxFailureRatio, "version", []string{"1.28"}) //nolint: errcheck
 	flags.StringVar(&opts.rollback.order, flagRollbackOrder, "", flagDesc(flagRollbackOrder, `Rollback order ("start-first"|"stop-first")`))
-	flags.SetAnnotation(flagRollbackOrder, "version", []string{"1.29"})
+	flags.SetAnnotation(flagRollbackOrder, "version", []string{"1.29"}) //nolint: errcheck
 
 	flags.StringVar(&opts.endpoint.mode, flagEndpointMode, defaultFlagValues.getString(flagEndpointMode), "Endpoint mode (vip or dnsrr)")
 
 	flags.BoolVar(&opts.registryAuth, flagRegistryAuth, false, "Send registry authentication details to swarm agents")
 	flags.BoolVar(&opts.noResolveImage, flagNoResolveImage, false, "Do not query the registry to resolve image digest and supported platforms")
-	flags.SetAnnotation(flagNoResolveImage, "version", []string{"1.30"})
+	flags.SetAnnotation(flagNoResolveImage, "version", []string{"1.30"}) //nolint: errcheck
 
 	flags.StringVar(&opts.logDriver.name, flagLogDriver, "", "Logging driver for service")
 	flags.Var(&opts.logDriver.opts, flagLogOpt, "Logging driver options")
 
 	flags.StringVar(&opts.healthcheck.cmd, flagHealthCmd, "", "Command to run to check health")
-	flags.SetAnnotation(flagHealthCmd, "version", []string{"1.25"})
+	flags.SetAnnotation(flagHealthCmd, "version", []string{"1.25"}) //nolint: errcheck
 	flags.Var(&opts.healthcheck.interval, flagHealthInterval, "Time between running the check (ms|s|m|h)")
-	flags.SetAnnotation(flagHealthInterval, "version", []string{"1.25"})
+	flags.SetAnnotation(flagHealthInterval, "version", []string{"1.25"}) //nolint: errcheck
 	flags.Var(&opts.healthcheck.timeout, flagHealthTimeout, "Maximum time to allow one check to run (ms|s|m|h)")
-	flags.SetAnnotation(flagHealthTimeout, "version", []string{"1.25"})
+	flags.SetAnnotation(flagHealthTimeout, "version", []string{"1.25"}) //nolint: errcheck
 	flags.IntVar(&opts.healthcheck.retries, flagHealthRetries, 0, "Consecutive failures needed to report unhealthy")
-	flags.SetAnnotation(flagHealthRetries, "version", []string{"1.25"})
+	flags.SetAnnotation(flagHealthRetries, "version", []string{"1.25"}) //nolint: errcheck
 	flags.Var(&opts.healthcheck.startPeriod, flagHealthStartPeriod, "Start period for the container to initialize before counting retries towards unstable (ms|s|m|h)")
-	flags.SetAnnotation(flagHealthStartPeriod, "version", []string{"1.29"})
+	flags.SetAnnotation(flagHealthStartPeriod, "version", []string{"1.29"}) //nolint: errcheck
 	flags.BoolVar(&opts.healthcheck.noHealthcheck, flagNoHealthcheck, false, "Disable any container-specified HEALTHCHECK")
-	flags.SetAnnotation(flagNoHealthcheck, "version", []string{"1.25"})
+	flags.SetAnnotation(flagNoHealthcheck, "version", []string{"1.25"}) //nolint: errcheck
 
 	flags.BoolVarP(&opts.tty, flagTTY, "t", false, "Allocate a pseudo-TTY")
-	flags.SetAnnotation(flagTTY, "version", []string{"1.25"})
+	flags.SetAnnotation(flagTTY, "version", []string{"1.25"}) //nolint: errcheck
 
 	flags.BoolVar(&opts.readOnly, flagReadOnly, false, "Mount the container's root filesystem as read only")
-	flags.SetAnnotation(flagReadOnly, "version", []string{"1.28"})
+	flags.SetAnnotation(flagReadOnly, "version", []string{"1.28"}) //nolint: errcheck
 
 	flags.StringVar(&opts.stopSignal, flagStopSignal, "", "Signal to stop the container")
-	flags.SetAnnotation(flagStopSignal, "version", []string{"1.28"})
+	flags.SetAnnotation(flagStopSignal, "version", []string{"1.28"}) //nolint: errcheck
 	flags.StringVar(&opts.isolation, flagIsolation, "", "Service container isolation mode")
-	flags.SetAnnotation(flagIsolation, "version", []string{"1.35"})
+	flags.SetAnnotation(flagIsolation, "version", []string{"1.35"}) //nolint: errcheck
 }
 
 const (

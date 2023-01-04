@@ -42,14 +42,14 @@ func newUpdateCommand(dockerCli command.Cli) *cobra.Command {
 	flags.String("image", "", "Service image tag")
 	flags.Var(&ShlexOpt{}, "args", "Service command args")
 	flags.Bool(flagRollback, false, "Rollback to previous specification")
-	flags.SetAnnotation(flagRollback, "version", []string{"1.25"})
+	flags.SetAnnotation(flagRollback, "version", []string{"1.25"}) //nolint: errcheck
 	flags.Bool("force", false, "Force update even if no changes require it")
-	flags.SetAnnotation("force", "version", []string{"1.25"})
+	flags.SetAnnotation("force", "version", []string{"1.25"}) //nolint: errcheck
 	addServiceFlags(flags, options, nil)
 
 	flags.Var(newListOptsVar(), flagEnvRemove, "Remove an environment variable")
 	flags.Var(newListOptsVar(), flagGroupRemove, "Remove a previously added supplementary user group from the container")
-	flags.SetAnnotation(flagGroupRemove, "version", []string{"1.25"})
+	flags.SetAnnotation(flagGroupRemove, "version", []string{"1.25"}) //nolint: errcheck
 	flags.Var(newListOptsVar(), flagLabelRemove, "Remove a label by its key")
 	flags.Var(newListOptsVar(), flagContainerLabelRemove, "Remove a container label by its key")
 	flags.Var(newListOptsVar(), flagMountRemove, "Remove a mount by its target path")
@@ -57,63 +57,63 @@ func newUpdateCommand(dockerCli command.Cli) *cobra.Command {
 	flags.Var(&opts.PortOpt{}, flagPublishRemove, "Remove a published port by its target port")
 	flags.Var(newListOptsVar(), flagConstraintRemove, "Remove a constraint")
 	flags.Var(newListOptsVar(), flagDNSRemove, "Remove a custom DNS server")
-	flags.SetAnnotation(flagDNSRemove, "version", []string{"1.25"})
+	flags.SetAnnotation(flagDNSRemove, "version", []string{"1.25"}) //nolint: errcheck
 	flags.Var(newListOptsVar(), flagDNSOptionRemove, "Remove a DNS option")
-	flags.SetAnnotation(flagDNSOptionRemove, "version", []string{"1.25"})
+	flags.SetAnnotation(flagDNSOptionRemove, "version", []string{"1.25"}) //nolint: errcheck
 	flags.Var(newListOptsVar(), flagDNSSearchRemove, "Remove a DNS search domain")
-	flags.SetAnnotation(flagDNSSearchRemove, "version", []string{"1.25"})
+	flags.SetAnnotation(flagDNSSearchRemove, "version", []string{"1.25"}) //nolint: errcheck
 	flags.Var(newListOptsVar(), flagHostRemove, "Remove a custom host-to-IP mapping (host:ip)")
-	flags.SetAnnotation(flagHostRemove, "version", []string{"1.25"})
+	flags.SetAnnotation(flagHostRemove, "version", []string{"1.25"}) //nolint: errcheck
 	flags.Var(&options.labels, flagLabelAdd, "Add or update a service label")
 	flags.Var(&options.containerLabels, flagContainerLabelAdd, "Add or update a container label")
 	flags.Var(&options.env, flagEnvAdd, "Add or update an environment variable")
 	flags.Var(newListOptsVar(), flagSecretRemove, "Remove a secret")
-	flags.SetAnnotation(flagSecretRemove, "version", []string{"1.25"})
+	flags.SetAnnotation(flagSecretRemove, "version", []string{"1.25"}) //nolint: errcheck
 	flags.Var(&options.secrets, flagSecretAdd, "Add or update a secret on a service")
-	flags.SetAnnotation(flagSecretAdd, "version", []string{"1.25"})
+	flags.SetAnnotation(flagSecretAdd, "version", []string{"1.25"}) //nolint: errcheck
 
 	flags.Var(newListOptsVar(), flagConfigRemove, "Remove a configuration file")
-	flags.SetAnnotation(flagConfigRemove, "version", []string{"1.30"})
+	flags.SetAnnotation(flagConfigRemove, "version", []string{"1.30"}) //nolint: errcheck
 	flags.Var(&options.configs, flagConfigAdd, "Add or update a config file on a service")
-	flags.SetAnnotation(flagConfigAdd, "version", []string{"1.30"})
+	flags.SetAnnotation(flagConfigAdd, "version", []string{"1.30"}) //nolint: errcheck
 
 	flags.Var(&options.mounts, flagMountAdd, "Add or update a mount on a service")
 	flags.Var(&options.constraints, flagConstraintAdd, "Add or update a placement constraint")
 	flags.Var(&options.placementPrefs, flagPlacementPrefAdd, "Add a placement preference")
-	flags.SetAnnotation(flagPlacementPrefAdd, "version", []string{"1.28"})
+	flags.SetAnnotation(flagPlacementPrefAdd, "version", []string{"1.28"}) //nolint: errcheck
 	flags.Var(&placementPrefOpts{}, flagPlacementPrefRemove, "Remove a placement preference")
-	flags.SetAnnotation(flagPlacementPrefRemove, "version", []string{"1.28"})
+	flags.SetAnnotation(flagPlacementPrefRemove, "version", []string{"1.28"}) //nolint: errcheck
 	flags.Var(&options.networks, flagNetworkAdd, "Add a network")
-	flags.SetAnnotation(flagNetworkAdd, "version", []string{"1.29"})
+	flags.SetAnnotation(flagNetworkAdd, "version", []string{"1.29"}) //nolint: errcheck
 	flags.Var(newListOptsVar(), flagNetworkRemove, "Remove a network")
-	flags.SetAnnotation(flagNetworkRemove, "version", []string{"1.29"})
+	flags.SetAnnotation(flagNetworkRemove, "version", []string{"1.29"}) //nolint: errcheck
 	flags.Var(&options.endpoint.publishPorts, flagPublishAdd, "Add or update a published port")
 	flags.Var(&options.groups, flagGroupAdd, "Add an additional supplementary user group to the container")
-	flags.SetAnnotation(flagGroupAdd, "version", []string{"1.25"})
+	flags.SetAnnotation(flagGroupAdd, "version", []string{"1.25"}) //nolint: errcheck
 	flags.Var(&options.dns, flagDNSAdd, "Add or update a custom DNS server")
-	flags.SetAnnotation(flagDNSAdd, "version", []string{"1.25"})
+	flags.SetAnnotation(flagDNSAdd, "version", []string{"1.25"}) //nolint: errcheck
 	flags.Var(&options.dnsOption, flagDNSOptionAdd, "Add or update a DNS option")
-	flags.SetAnnotation(flagDNSOptionAdd, "version", []string{"1.25"})
+	flags.SetAnnotation(flagDNSOptionAdd, "version", []string{"1.25"}) //nolint: errcheck
 	flags.Var(&options.dnsSearch, flagDNSSearchAdd, "Add or update a custom DNS search domain")
-	flags.SetAnnotation(flagDNSSearchAdd, "version", []string{"1.25"})
+	flags.SetAnnotation(flagDNSSearchAdd, "version", []string{"1.25"}) //nolint: errcheck
 	flags.Var(&options.hosts, flagHostAdd, "Add a custom host-to-IP mapping (host:ip)")
-	flags.SetAnnotation(flagHostAdd, "version", []string{"1.25"})
+	flags.SetAnnotation(flagHostAdd, "version", []string{"1.25"}) //nolint: errcheck
 	flags.BoolVar(&options.init, flagInit, false, "Use an init inside each service container to forward signals and reap processes")
-	flags.SetAnnotation(flagInit, "version", []string{"1.37"})
+	flags.SetAnnotation(flagInit, "version", []string{"1.37"}) //nolint: errcheck
 	flags.Var(&options.sysctls, flagSysCtlAdd, "Add or update a Sysctl option")
-	flags.SetAnnotation(flagSysCtlAdd, "version", []string{"1.40"})
+	flags.SetAnnotation(flagSysCtlAdd, "version", []string{"1.40"}) //nolint: errcheck
 	flags.Var(newListOptsVar(), flagSysCtlRemove, "Remove a Sysctl option")
-	flags.SetAnnotation(flagSysCtlRemove, "version", []string{"1.40"})
+	flags.SetAnnotation(flagSysCtlRemove, "version", []string{"1.40"}) //nolint: errcheck
 	flags.Var(&options.ulimits, flagUlimitAdd, "Add or update a ulimit option")
-	flags.SetAnnotation(flagUlimitAdd, "version", []string{"1.41"})
+	flags.SetAnnotation(flagUlimitAdd, "version", []string{"1.41"}) //nolint: errcheck
 	flags.Var(newListOptsVar(), flagUlimitRemove, "Remove a ulimit option")
-	flags.SetAnnotation(flagUlimitRemove, "version", []string{"1.41"})
+	flags.SetAnnotation(flagUlimitRemove, "version", []string{"1.41"}) //nolint: errcheck
 
 	// Add needs parsing, Remove only needs the key
 	flags.Var(newListOptsVar(), flagGenericResourcesRemove, "Remove a Generic resource")
-	flags.SetAnnotation(flagHostAdd, "version", []string{"1.32"})
+	flags.SetAnnotation(flagHostAdd, "version", []string{"1.32"}) //nolint: errcheck
 	flags.Var(newListOptsVarWithValidator(ValidateSingleGenericResource), flagGenericResourcesAdd, "Add a Generic resource")
-	flags.SetAnnotation(flagHostAdd, "version", []string{"1.32"})
+	flags.SetAnnotation(flagHostAdd, "version", []string{"1.32"}) //nolint: errcheck
 
 	return cmd
 }

@@ -117,7 +117,7 @@ func attach(ctx context.Context, dockerCli command.Cli, opts caOptions) error {
 	}()
 
 	if opts.quiet {
-		go io.Copy(io.Discard, pipeReader)
+		go io.Copy(io.Discard, pipeReader) //nolint:errcheck
 		return <-errChan
 	}
 
