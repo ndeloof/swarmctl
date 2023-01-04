@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"github.com/moby/swarmctl/cmd/config"
 	"github.com/moby/swarmctl/cmd/secret"
 	"os"
 
@@ -64,6 +65,7 @@ func RootCommand(cli command.Cli) *cobra.Command {
 		node.NewNodeCommand(cli),
 		secret.NewSecretCommand(cli),
 		service.NewServiceCommand(cli),
+		config.NewConfigCommand(cli),
 	)
 	return cmd
 }
