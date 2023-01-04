@@ -1,5 +1,5 @@
 Swarm updated.
-To unlock a swarm manager after it restarts, run the `docker swarm unlock`
+To unlock a swarm manager after it restarts, run the `swarmctl swarm unlock`
 command and provide the following key:
 
     unlock-key

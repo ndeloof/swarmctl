@@ -109,7 +109,7 @@ func runInit(dockerCli command.Cli, flags *pflag.FlagSet, opts initOptions) erro
 		return err
 	}
 
-	fmt.Fprint(dockerCli.Out(), "To add a manager to this swarm, run 'docker swarm join-token manager' and follow the instructions.\n\n")
+	fmt.Fprint(dockerCli.Out(), "To add a manager to this swarm, run 'swarmctl swarm join-token manager' and follow the instructions.\n\n")
 
 	if req.AutoLockManagers {
 		unlockKeyResp, err := client.SwarmGetUnlockKey(ctx)
