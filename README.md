@@ -9,7 +9,7 @@ This command line is a drop-in replacement, with the exact same UX (actually, ru
 - [X] `docker secret`  => `swarmctl secret`
 - [X] `docker config`  => `swarmctl config`
 - [X] `docker service` => `swarmctl service`
-- [X] `docker task`    => `swarmctl task`
+- [X] `docker stack`   => `swarmctl stack`
 - [X] `docker service` => `swarmctl service`
 
 ## How to use
@@ -17,5 +17,6 @@ This command line is a drop-in replacement, with the exact same UX (actually, ru
 build:
 `go build -o swarmctl cmd/main.go`
 
-then run
-`./swarmctl swarm init`
+## Demo
+
+[![asciicast](https://asciinema.org/a/aPX9jrbMuPMsS8MLcgtvNi7vA.svg)](https://asciinema.org/a/aPX9jrbMuPMsS8MLcgtvNi7vA)
