@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
-	"github.com/moby/swarmctl/cmd/swarmctl"
 	"os"
 
 	"github.com/docker/cli/cli"
 	"github.com/docker/cli/cli/command"
+	commands "github.com/moby/swarmctl/cmd/root"
 )
 
 func main() {
@@ -17,7 +17,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	cmd := swarmctl.RootCommand(dockerCli)
+	cmd := commands.RootCommand(dockerCli)
 	opts, flags := cli.SetupPluginRootCommand(cmd)
 	tcmd := cli.NewTopLevelCommand(cmd, dockerCli, opts, flags)
 	tcmd.Initialize() //nolint:errcheck
