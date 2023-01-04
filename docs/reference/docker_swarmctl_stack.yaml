@@ -1,0 +1,37 @@
+command: docker swarmctl stack
+short: Manage Swarm stacks
+long: Manage Swarm stacks
+usage: docker swarmctl stack [OPTIONS]
+pname: docker swarmctl
+plink: docker_swarmctl.yaml
+cname:
+    - docker swarmctl stack config
+    - docker swarmctl stack deploy
+    - docker swarmctl stack ls
+    - docker swarmctl stack ps
+    - docker swarmctl stack rm
+    - docker swarmctl stack services
+clink:
+    - docker_swarmctl_stack_config.yaml
+    - docker_swarmctl_stack_deploy.yaml
+    - docker_swarmctl_stack_ls.yaml
+    - docker_swarmctl_stack_ps.yaml
+    - docker_swarmctl_stack_rm.yaml
+    - docker_swarmctl_stack_services.yaml
+options:
+    - option: orchestrator
+      value_type: string
+      description: Orchestrator to use (swarm|all)
+      deprecated: true
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+min_api_version: "1.25"
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: true
+

@@ -1,0 +1,37 @@
+command: docker swarmctl service rollback
+short: Revert changes to a service's configuration
+long: Revert changes to a service's configuration
+usage: docker swarmctl service rollback [OPTIONS] SERVICE
+pname: docker swarmctl service
+plink: docker_swarmctl_service.yaml
+options:
+    - option: detach
+      shorthand: d
+      value_type: bool
+      default_value: "false"
+      description: Exit immediately instead of waiting for the service to converge
+      deprecated: false
+      hidden: false
+      min_api_version: "1.29"
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: quiet
+      shorthand: q
+      value_type: bool
+      default_value: "false"
+      description: Suppress progress output
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+min_api_version: "1.31"
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: true
+

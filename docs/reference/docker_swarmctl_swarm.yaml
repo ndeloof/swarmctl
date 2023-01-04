@@ -1,0 +1,31 @@
+command: docker swarmctl swarm
+short: Manage Swarm
+long: Manage Swarm
+usage: docker swarmctl swarm
+pname: docker swarmctl
+plink: docker_swarmctl.yaml
+cname:
+    - docker swarmctl swarm ca
+    - docker swarmctl swarm init
+    - docker swarmctl swarm join
+    - docker swarmctl swarm join-token
+    - docker swarmctl swarm leave
+    - docker swarmctl swarm unlock
+    - docker swarmctl swarm unlock-key
+    - docker swarmctl swarm update
+clink:
+    - docker_swarmctl_swarm_ca.yaml
+    - docker_swarmctl_swarm_init.yaml
+    - docker_swarmctl_swarm_join.yaml
+    - docker_swarmctl_swarm_join-token.yaml
+    - docker_swarmctl_swarm_leave.yaml
+    - docker_swarmctl_swarm_unlock.yaml
+    - docker_swarmctl_swarm_unlock-key.yaml
+    - docker_swarmctl_swarm_update.yaml
+deprecated: false
+min_api_version: "1.24"
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: true
+

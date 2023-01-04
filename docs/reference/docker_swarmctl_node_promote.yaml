@@ -1,0 +1,13 @@
+command: docker swarmctl node promote
+short: Promote one or more nodes to manager in the swarm
+long: Promote one or more nodes to manager in the swarm
+usage: docker swarmctl node promote NODE [NODE...]
+pname: docker swarmctl node
+plink: docker_swarmctl_node.yaml
+deprecated: false
+min_api_version: "1.24"
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: true
+

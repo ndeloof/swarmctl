@@ -1,0 +1,50 @@
+command: docker swarmctl node update
+short: Update a node
+long: Update a node
+usage: docker swarmctl node update [OPTIONS] NODE
+pname: docker swarmctl node
+plink: docker_swarmctl_node.yaml
+options:
+    - option: availability
+      value_type: string
+      description: Availability of the node ("active"|"pause"|"drain")
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: label-add
+      value_type: list
+      description: Add or update a node label (key=value)
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: label-rm
+      value_type: list
+      description: Remove a node label if exists
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: role
+      value_type: string
+      description: Role of the node ("worker"|"manager")
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+min_api_version: "1.24"
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: true
+

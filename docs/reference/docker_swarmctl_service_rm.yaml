@@ -1,0 +1,14 @@
+command: docker swarmctl service rm
+aliases: docker swarmctl service rm, docker swarmctl service remove
+short: Remove one or more services
+long: Remove one or more services
+usage: docker swarmctl service rm SERVICE [SERVICE...]
+pname: docker swarmctl service
+plink: docker_swarmctl_service.yaml
+deprecated: false
+min_api_version: "1.24"
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: true
+

@@ -1,0 +1,14 @@
+command: docker swarmctl config rm
+aliases: docker swarmctl config rm, docker swarmctl config remove
+short: Remove one or more configs
+long: Remove one or more configs
+usage: docker swarmctl config rm CONFIG [CONFIG...]
+pname: docker swarmctl config
+plink: docker_swarmctl_config.yaml
+deprecated: false
+min_api_version: "1.30"
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: true
+

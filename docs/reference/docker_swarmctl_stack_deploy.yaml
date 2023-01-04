@@ -1,0 +1,70 @@
+command: docker swarmctl stack deploy
+aliases: docker swarmctl stack deploy, docker swarmctl stack up
+short: Deploy a new stack or update an existing stack
+long: Deploy a new stack or update an existing stack
+usage: docker swarmctl stack deploy [OPTIONS] STACK
+pname: docker swarmctl stack
+plink: docker_swarmctl_stack.yaml
+options:
+    - option: compose-file
+      shorthand: c
+      value_type: stringSlice
+      default_value: '[]'
+      description: Path to a Compose file, or "-" to read from stdin
+      deprecated: false
+      hidden: false
+      min_api_version: "1.25"
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: prune
+      value_type: bool
+      default_value: "false"
+      description: Prune services that are no longer referenced
+      deprecated: false
+      hidden: false
+      min_api_version: "1.27"
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: resolve-image
+      value_type: string
+      default_value: always
+      description: |
+        Query the registry to resolve image digest and supported platforms ("always"|"changed"|"never")
+      deprecated: false
+      hidden: false
+      min_api_version: "1.30"
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: with-registry-auth
+      value_type: bool
+      default_value: "false"
+      description: Send registry authentication details to Swarm agents
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+inherited_options:
+    - option: orchestrator
+      value_type: string
+      description: Orchestrator to use (swarm|all)
+      deprecated: true
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+min_api_version: "1.25"
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: true
+

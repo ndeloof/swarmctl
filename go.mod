@@ -4,6 +4,7 @@ go 1.18
 
 require (
 	github.com/docker/cli v20.10.13+incompatible
+	github.com/docker/cli-docs-tool v0.5.1
 	github.com/docker/docker v23.0.0-rc.1+incompatible
 	github.com/imdario/mergo v0.3.13
 	github.com/opencontainers/go-digest v1.0.0
@@ -19,6 +20,7 @@ require (
 require (
 	github.com/xeipuuv/gojsonpointer v0.0.0-20180127040702-4e3ac2762d5f // indirect
 	github.com/xeipuuv/gojsonreference v0.0.0-20180127040603-bd5ef7bd5415 // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
 
 require (

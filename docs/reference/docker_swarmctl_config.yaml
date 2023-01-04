@@ -1,0 +1,23 @@
+command: docker swarmctl config
+short: Manage Swarm configs
+long: Manage Swarm configs
+usage: docker swarmctl config
+pname: docker swarmctl
+plink: docker_swarmctl.yaml
+cname:
+    - docker swarmctl config create
+    - docker swarmctl config inspect
+    - docker swarmctl config ls
+    - docker swarmctl config rm
+clink:
+    - docker_swarmctl_config_create.yaml
+    - docker_swarmctl_config_inspect.yaml
+    - docker_swarmctl_config_ls.yaml
+    - docker_swarmctl_config_rm.yaml
+deprecated: false
+min_api_version: "1.30"
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: true
+
