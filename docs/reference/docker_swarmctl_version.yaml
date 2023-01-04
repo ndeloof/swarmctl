@@ -1,0 +1,45 @@
+command: docker swarmctl version
+short: Display Swarm Control version
+long: Display Swarm Control version
+usage: docker swarmctl version [OPTIONS]
+pname: docker swarmctl
+plink: docker_swarmctl.yaml
+options:
+    - option: format
+      shorthand: f
+      value_type: string
+      description: 'Format the output. Values: [pretty | json]. (Default: pretty)'
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: short
+      value_type: bool
+      default_value: "false"
+      description: Shows only Swarm Controller's version number.
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: version
+      shorthand: v
+      value_type: bool
+      default_value: "false"
+      description: Show the Docker Compose version information
+      deprecated: false
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+min_api_version: "1.24"
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: true
+

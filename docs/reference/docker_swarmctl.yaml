@@ -1,6 +1,7 @@
 command: docker swarmctl
 short: Swarm Control
 long: Swarm Control
+usage: docker swarmctl COMMAND
 pname: docker
 plink: docker.yaml
 cname:
@@ -10,6 +11,7 @@ cname:
     - docker swarmctl service
     - docker swarmctl stack
     - docker swarmctl swarm
+    - docker swarmctl version
 clink:
     - docker_swarmctl_config.yaml
     - docker_swarmctl_node.yaml
@@ -17,6 +19,19 @@ clink:
     - docker_swarmctl_service.yaml
     - docker_swarmctl_stack.yaml
     - docker_swarmctl_swarm.yaml
+    - docker_swarmctl_version.yaml
+options:
+    - option: version
+      shorthand: v
+      value_type: bool
+      default_value: "false"
+      description: Show the Swarm Controller version information
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
 deprecated: false
 experimental: false
 experimentalcli: false
