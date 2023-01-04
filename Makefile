@@ -23,6 +23,20 @@ test: ## Run unit tests
 lint: ## run linter(s)
 	$(BUILDX_CMD) bake -f swarmctl-bake.hcl lint
 
+.PHONY: docs
+docs: ## generate documentation
+	$(eval $@_TMP_OUT := $(shell mktemp -d -t compose-output.XXXXXXXXXX))
+	$(BUILDX_CMD) bake -f swarmctl-bake.hcl --set "*.output=type=local,dest=$($@_TMP_OUT)" docs-update
+	rm -rf ./docs/internal
+	cp -R "$($@_TMP_OUT)"/out/* ./docs/
+	rm -rf "$($@_TMP_OUT)"/*
+
+.PHONY: validate-docs
+validate-docs: ## validate the doc does not change
+	$(BUILDX_CMD) bake -f swarmctl-bake.hcl docs-validate
+
+validate: validate-docs  ## Validate sources
+
 help: ## Show help
 	@echo Please specify a build target. The choices are:
 	@grep -E '^[0-9a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'

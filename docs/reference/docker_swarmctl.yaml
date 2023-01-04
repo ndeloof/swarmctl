@@ -1,0 +1,25 @@
+command: docker swarmctl
+short: Swarm Control
+long: Swarm Control
+pname: docker
+plink: docker.yaml
+cname:
+    - docker swarmctl config
+    - docker swarmctl node
+    - docker swarmctl secret
+    - docker swarmctl service
+    - docker swarmctl stack
+    - docker swarmctl swarm
+clink:
+    - docker_swarmctl_config.yaml
+    - docker_swarmctl_node.yaml
+    - docker_swarmctl_secret.yaml
+    - docker_swarmctl_service.yaml
+    - docker_swarmctl_stack.yaml
+    - docker_swarmctl_swarm.yaml
+deprecated: false
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: false
+

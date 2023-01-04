@@ -1,0 +1,63 @@
+command: docker swarmctl swarm join
+short: Join a swarm as a node and/or manager
+long: Join a swarm as a node and/or manager
+usage: docker swarmctl swarm join [OPTIONS] HOST:PORT
+pname: docker swarmctl swarm
+plink: docker_swarmctl_swarm.yaml
+options:
+    - option: advertise-addr
+      value_type: string
+      description: 'Advertised address (format: <ip|interface>[:port])'
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: availability
+      value_type: string
+      default_value: active
+      description: Availability of the node ("active"|"pause"|"drain")
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: data-path-addr
+      value_type: string
+      description: |
+        Address or interface to use for data path traffic (format: <ip|interface>)
+      deprecated: false
+      hidden: false
+      min_api_version: "1.31"
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: listen-addr
+      value_type: node-addr
+      default_value: 0.0.0.0:2377
+      description: 'Listen address (format: <ip|interface>[:port])'
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: token
+      value_type: string
+      description: Token for entry into the swarm
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+min_api_version: "1.24"
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: true
+

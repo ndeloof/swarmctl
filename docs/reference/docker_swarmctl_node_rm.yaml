@@ -1,0 +1,26 @@
+command: docker swarmctl node rm
+aliases: docker swarmctl node rm, docker swarmctl node remove
+short: Remove one or more nodes from the swarm
+long: Remove one or more nodes from the swarm
+usage: docker swarmctl node rm [OPTIONS] NODE [NODE...]
+pname: docker swarmctl node
+plink: docker_swarmctl_node.yaml
+options:
+    - option: force
+      shorthand: f
+      value_type: bool
+      default_value: "false"
+      description: Force remove a node from the swarm
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+min_api_version: "1.24"
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: true
+

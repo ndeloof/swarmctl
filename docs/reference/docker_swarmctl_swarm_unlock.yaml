@@ -1,0 +1,13 @@
+command: docker swarmctl swarm unlock
+short: Unlock swarm
+long: Unlock swarm
+usage: docker swarmctl swarm unlock
+pname: docker swarmctl swarm
+plink: docker_swarmctl_swarm.yaml
+deprecated: false
+min_api_version: "1.24"
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: true
+

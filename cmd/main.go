@@ -2,17 +2,11 @@ package main
 
 import (
 	"fmt"
+	"github.com/moby/swarmctl/cmd/swarmctl"
 	"os"
 
 	"github.com/docker/cli/cli"
 	"github.com/docker/cli/cli/command"
-	"github.com/moby/swarmctl/cmd/config"
-	"github.com/moby/swarmctl/cmd/node"
-	"github.com/moby/swarmctl/cmd/secret"
-	"github.com/moby/swarmctl/cmd/service"
-	"github.com/moby/swarmctl/cmd/stack"
-	"github.com/moby/swarmctl/cmd/swarm"
-	"github.com/spf13/cobra"
 )
 
 func main() {
@@ -23,7 +17,7 @@ func main() {
 		os.Exit(1)
 	}
 
-	cmd := RootCommand(dockerCli)
+	cmd := swarmctl.RootCommand(dockerCli)
 	opts, flags := cli.SetupPluginRootCommand(cmd)
 	tcmd := cli.NewTopLevelCommand(cmd, dockerCli, opts, flags)
 	tcmd.Initialize() //nolint:errcheck
@@ -52,22 +46,4 @@ func main() {
 		fmt.Fprintln(dockerCli.Err(), err)
 		os.Exit(1)
 	}
-}
-
-func RootCommand(cli command.Cli) *cobra.Command {
-	cmd := &cobra.Command{
-		Short:            "Swarm Control",
-		Use:              "swarmctl COMMAND",
-		TraverseChildren: true,
-	}
-
-	cmd.AddCommand(
-		swarm.NewSwarmCommand(cli),
-		node.NewNodeCommand(cli),
-		secret.NewSecretCommand(cli),
-		service.NewServiceCommand(cli),
-		config.NewConfigCommand(cli),
-		stack.NewStackCommand(cli),
-	)
-	return cmd
 }

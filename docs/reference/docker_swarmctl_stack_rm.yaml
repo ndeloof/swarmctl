@@ -1,0 +1,24 @@
+command: docker swarmctl stack rm
+aliases: docker swarmctl stack rm, docker swarmctl stack remove, docker swarmctl stack down
+short: Remove one or more stacks
+long: Remove one or more stacks
+usage: docker swarmctl stack rm [OPTIONS] STACK [STACK...]
+pname: docker swarmctl stack
+plink: docker_swarmctl_stack.yaml
+inherited_options:
+    - option: orchestrator
+      value_type: string
+      description: Orchestrator to use (swarm|all)
+      deprecated: true
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+min_api_version: "1.25"
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: true
+

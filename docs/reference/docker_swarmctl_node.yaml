@@ -1,0 +1,29 @@
+command: docker swarmctl node
+short: Manage Swarm nodes
+long: Manage Swarm nodes
+usage: docker swarmctl node
+pname: docker swarmctl
+plink: docker_swarmctl.yaml
+cname:
+    - docker swarmctl node demote
+    - docker swarmctl node inspect
+    - docker swarmctl node ls
+    - docker swarmctl node promote
+    - docker swarmctl node ps
+    - docker swarmctl node rm
+    - docker swarmctl node update
+clink:
+    - docker_swarmctl_node_demote.yaml
+    - docker_swarmctl_node_inspect.yaml
+    - docker_swarmctl_node_ls.yaml
+    - docker_swarmctl_node_promote.yaml
+    - docker_swarmctl_node_ps.yaml
+    - docker_swarmctl_node_rm.yaml
+    - docker_swarmctl_node_update.yaml
+deprecated: false
+min_api_version: "1.24"
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: true
+

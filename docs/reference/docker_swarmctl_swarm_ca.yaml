@@ -1,0 +1,86 @@
+command: docker swarmctl swarm ca
+short: Display and rotate the root CA
+long: Display and rotate the root CA
+usage: docker swarmctl swarm ca [OPTIONS]
+pname: docker swarmctl swarm
+plink: docker_swarmctl_swarm.yaml
+options:
+    - option: ca-cert
+      value_type: pem-file
+      description: |
+        Path to the PEM-formatted root CA certificate to use for the new cluster
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: ca-key
+      value_type: pem-file
+      description: Path to the PEM-formatted root CA key to use for the new cluster
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: cert-expiry
+      value_type: duration
+      default_value: 2160h0m0s
+      description: Validity period for node certificates (ns|us|ms|s|m|h)
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: detach
+      shorthand: d
+      value_type: bool
+      default_value: "false"
+      description: |
+        Exit immediately instead of waiting for the root rotation to converge
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: external-ca
+      value_type: external-ca
+      description: Specifications of one or more certificate signing endpoints
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: quiet
+      shorthand: q
+      value_type: bool
+      default_value: "false"
+      description: Suppress progress output
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: rotate
+      value_type: bool
+      default_value: "false"
+      description: |
+        Rotate the swarm CA - if no certificate or key are provided, new ones will be generated
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+min_api_version: "1.30"
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: true
+

@@ -1,0 +1,45 @@
+command: docker swarmctl stack config
+short: Outputs the final config file, after doing merges and interpolations
+long: Outputs the final config file, after doing merges and interpolations
+usage: docker swarmctl stack config [OPTIONS]
+pname: docker swarmctl stack
+plink: docker_swarmctl_stack.yaml
+options:
+    - option: compose-file
+      shorthand: c
+      value_type: stringSlice
+      default_value: '[]'
+      description: Path to a Compose file, or "-" to read from stdin
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+    - option: skip-interpolation
+      value_type: bool
+      default_value: "false"
+      description: Skip interpolation and output only merged config
+      deprecated: false
+      hidden: false
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+inherited_options:
+    - option: orchestrator
+      value_type: string
+      description: Orchestrator to use (swarm|all)
+      deprecated: true
+      hidden: true
+      experimental: false
+      experimentalcli: false
+      kubernetes: false
+      swarm: false
+deprecated: false
+min_api_version: "1.25"
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: true
+

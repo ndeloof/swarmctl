@@ -1,0 +1,33 @@
+command: docker swarmctl service
+short: Manage Swarm services
+long: Manage Swarm services
+usage: docker swarmctl service
+pname: docker swarmctl
+plink: docker_swarmctl.yaml
+cname:
+    - docker swarmctl service create
+    - docker swarmctl service inspect
+    - docker swarmctl service logs
+    - docker swarmctl service ls
+    - docker swarmctl service ps
+    - docker swarmctl service rm
+    - docker swarmctl service rollback
+    - docker swarmctl service scale
+    - docker swarmctl service update
+clink:
+    - docker_swarmctl_service_create.yaml
+    - docker_swarmctl_service_inspect.yaml
+    - docker_swarmctl_service_logs.yaml
+    - docker_swarmctl_service_ls.yaml
+    - docker_swarmctl_service_ps.yaml
+    - docker_swarmctl_service_rm.yaml
+    - docker_swarmctl_service_rollback.yaml
+    - docker_swarmctl_service_scale.yaml
+    - docker_swarmctl_service_update.yaml
+deprecated: false
+min_api_version: "1.24"
+experimental: false
+experimentalcli: false
+kubernetes: false
+swarm: true
+

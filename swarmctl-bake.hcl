@@ -68,3 +68,15 @@ target "lint" {
   target = "lint"
   output = ["type=cacheonly"]
 }
+
+target "docs-validate" {
+  inherits = ["_common"]
+  target = "docs-validate"
+  output = ["type=cacheonly"]
+}
+
+target "docs-update" {
+  inherits = ["_common"]
+  target = "docs-update"
+  output = ["./docs"]
+}

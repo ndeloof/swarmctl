@@ -64,3 +64,41 @@ RUN --mount=type=bind,target=. \
     --mount=type=cache,target=/root/.cache \
     --mount=from=golangci-lint,source=/usr/bin/golangci-lint,target=/usr/bin/golangci-lint \
     golangci-lint run --build-tags "$BUILD_TAGS" ./...
+
+FROM base AS docsgen
+WORKDIR /src
+RUN --mount=target=. \
+    --mount=target=/root/.cache,type=cache \
+    go build -o /out/docsgen ./docs/yaml/main/generate.go
+
+FROM --platform=${BUILDPLATFORM} alpine AS docs-build
+RUN apk add --no-cache rsync git
+WORKDIR /src
+COPY --from=docsgen /out/docsgen /usr/bin
+ARG DOCS_FORMATS
+RUN --mount=target=/context \
+    --mount=target=.,type=tmpfs <<EOT
+  set -e
+  rsync -a /context/. .
+  docsgen --formats "$DOCS_FORMATS" --source "docs/reference"
+  mkdir /out
+  cp -r docs/reference /out
+EOT
+
+FROM scratch AS docs-update
+COPY --from=docs-build /out /out
+
+FROM docs-build AS docs-validate
+RUN --mount=target=/context \
+    --mount=target=.,type=tmpfs <<EOT
+  set -e
+  rsync -a /context/. .
+  git add -A
+  rm -rf docs/reference/*
+  cp -rf /out/* ./docs/
+  if [ -n "$(git status --porcelain -- docs/reference)" ]; then
+    echo >&2 'ERROR: Docs result differs. Please update with "make docs"'
+    git status --porcelain -- docs/reference
+    exit 1
+  fi
+EOT
