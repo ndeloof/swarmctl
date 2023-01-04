@@ -3,6 +3,10 @@ all: binary
 BUILDX_CMD ?= docker buildx
 DESTDIR ?= ./bin/build
 
+ifeq ($(DETECTED_OS),Windows)
+	BINARY_EXT=.exe
+endif
+
 .PHONY: binary
 binary:
 	$(BUILDX_CMD) bake -f swarmctl-bake.hcl binary
@@ -35,7 +39,16 @@ docs: ## generate documentation
 validate-docs: ## validate the doc does not change
 	$(BUILDX_CMD) bake -f swarmctl-bake.hcl docs-validate
 
-validate: validate-docs  ## Validate sources
+
+.PHONY: go-mod-tidy
+go-mod-tidy: ## Run go mod tidy in a container and output resulting go.mod and go.sum
+	$(BUILDX_CMD) bake -f swarmctl-bake.hcl vendor-update
+
+.PHONY: validate-go-mod
+validate-go-mod: ## Validate go.mod and go.sum are up-to-date
+	$(BUILDX_CMD) bake -f swarmctl-bake.hcl vendor-validate
+
+validate: validate-docs validate-go-mod ## Validate sources
 
 help: ## Show help
 	@echo Please specify a build target. The choices are:
