@@ -15,7 +15,10 @@ This command line is a drop-in replacement, with the exact same UX (actually, ru
 ## How to use
 
 build:
-`go build -o swarmctl cmd/main.go`
+`make`
+
+then run
+`./bin/build/swarmctl swarm init`
 
 ## Demo
 
