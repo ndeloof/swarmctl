@@ -80,3 +80,15 @@ target "docs-update" {
   target = "docs-update"
   output = ["./docs"]
 }
+
+target "vendor-validate" {
+  inherits = ["_common"]
+  target = "vendor-validate"
+  output = ["type=cacheonly"]
+}
+
+target "vendor-update" {
+  inherits = ["_common"]
+  target = "vendor-update"
+  output = ["."]
+}

@@ -102,3 +102,24 @@ RUN --mount=target=/context \
     exit 1
   fi
 EOT
+
+FROM build-base AS vendored
+RUN --mount=type=bind,target=.,rw \
+    --mount=type=cache,target=/go/pkg/mod \
+    go mod tidy && mkdir /out && cp go.mod go.sum /out
+
+FROM scratch AS vendor-update
+COPY --from=vendored /out /
+
+FROM vendored AS vendor-validate
+RUN --mount=type=bind,target=.,rw <<EOT
+  set -e
+  git add -A
+  cp -rf /out/* .
+  diff=$(git status --porcelain -- go.mod go.sum)
+  if [ -n "$diff" ]; then
+    echo >&2 'ERROR: Vendor result differs. Please vendor your package with "make go-mod-tidy"'
+    echo "$diff"
+    exit 1
+  fi
+EOT
