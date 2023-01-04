@@ -6,9 +6,9 @@ import (
 	"testing"
 
 	"github.com/docker/cli/cli/streams"
-	"github.com/docker/cli/internal/test"
 	"github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/swarm"
+	"github.com/moby/swarmctl/internal/test"
 	"github.com/pkg/errors"
 	"gotest.tools/v3/assert"
 )
