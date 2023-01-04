@@ -6,6 +6,7 @@ import (
 
 	"github.com/docker/cli/cli"
 	"github.com/docker/cli/cli/command"
+	"github.com/moby/swarmctl/cmd/node"
 	"github.com/moby/swarmctl/cmd/swarm"
 	"github.com/spf13/cobra"
 )
@@ -57,6 +58,8 @@ func RootCommand(cli command.Cli) *cobra.Command {
 	}
 
 	cmd.AddCommand(
-		swarm.NewSwarmCommand(cli))
+		swarm.NewSwarmCommand(cli),
+		node.NewNodeCommand(cli),
+	)
 	return cmd
 }
