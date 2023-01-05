@@ -2,12 +2,13 @@ package version
 
 import (
 	"fmt"
+	"strings"
+
 	"github.com/docker/cli/cli"
 	"github.com/docker/cli/cli/command"
 	"github.com/moby/swarmctl/cmd/stack/formatter"
 	"github.com/moby/swarmctl/internal"
 	"github.com/spf13/cobra"
-	"strings"
 )
 
 type versionOptions struct {
@@ -27,8 +28,7 @@ func NewVersionCommand(dockerCli command.Cli) *cobra.Command {
 			return nil
 		},
 		Annotations: map[string]string{
-			"version": "1.24",
-			"swarm":   "manager",
+			"swarm": "manager",
 		},
 	}
 	// define flags for backward compatibility with com.docker.cli
